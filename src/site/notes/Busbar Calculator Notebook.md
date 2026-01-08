@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/busbar-calculator-notebook/","noteIcon":""}
+{"dg-publish":true,"permalink":"/busbar-calculator-notebook/","tags":["calculator","published"],"noteIcon":""}
 ---
 
 # Busbar Analysis
