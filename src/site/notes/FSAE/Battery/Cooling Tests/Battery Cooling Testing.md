@@ -25,9 +25,13 @@ This project originally started because I set out to create realistic cooling es
 ###### Heat Transfer First Principles and MATLAB Files
 The start of this project was in the semester before I had taken my university's heat transfer course. Before I designed any test setups or plans I worked on a couple thermal models in MATLAB. 
 
-Here's some of the files order of what I remember creating
-- [[HeatTransferSimulinkFunction.pdf]]
-	- Helped me understand some of the fundamentals of heat transfer. I wasn't sure how this would transfer over to the very convuluted airflow path of the ENEPAQ bricks though.
+Here's some of the files order of what I remember creating. The pdfs previews of the live scripts aren't that good, but it was some form of leaving documentation of my process.
+- <iframe src="/img/user/HeatTransferSimulinkFunction.pdf" width="100%" height="900px" title="HeatTransferSimulinkFunction.pdf" style="border:1px solid #ccc;"></iframe>
+	- Simple forced convection array cooling
+		- Helped me understand some of the fundamentals of heat transfer. I wasn't sure how this would transfer over to the very convuluted airflow path of the ENEPAQ bricks though.
+- [[dynamicSimilarity.pdf]]
+	- Wanted to see if I could save a couple weeks by using imperial stock rather than 1:1 size metric stock(from china)
+		- I was planning on creating "mock enepaq bricks" using 3D printing/lasercutting and round aluminum cylinders. I wanted to see if I could save a couple weeks by using imperial stock slightly bigger than 18mm round cells. I learned for my experimental model to be accurate it had to be dynamically similar and I wanted to see how I would expect my results to change. 
 
 *Matlab's export mlx as pdf didn't end up very neat, but I wanted to represent what I was doing at the time in some way. My code back then honestly wasn't that good*
 
