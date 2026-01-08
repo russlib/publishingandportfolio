@@ -2,7 +2,7 @@
 {"dg-publish":true,"permalink":"/heat-transfer-first-principles-and-matlab-files-embed-link/"}
 ---
 
-- <iframe src="/img/user/HeatTransferSimulinkFunction.pdf" width="100%" height="900px" title="HeatTransferSimulinkFunction.pdf" style="border:1px solid #ccc;"></iframe>
+- [[HeatTransferSimulinkFunction.pdf]]
 - Simple forced convection array cooling
 	- Helped me understand some of the fundamentals of heat transfer. I wasn't sure how this would transfer over to the very convuluted airflow path of the ENEPAQ bricks though.
 - [[dynamicSimilarity.pdf]]
