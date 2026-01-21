@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/heat-transfer/07-resources/heat-transfer-first-principles-and-matlab-files-embed-link/"}
+{"dg-publish":true,"permalink":"/heat-transfer-matlab/"}
 ---
 
 

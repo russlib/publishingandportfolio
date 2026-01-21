@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/portfolio-items-published/src/site/notes/landing-page-card-layout-staging/","tags":["staging"]}
+{"dg-publish":true,"permalink":"/landing-page-staging/","tags":["staging"]}
 ---
 
 
@@ -8,7 +8,7 @@
 <div class="card-grid">
 
 <div class="card">
-<a href="/busbar-calculator-notebook/">
+<a href="/busbar-calculator/">
 <div class="card-image">
 <img src="/img/placeholder-busbar.png" alt="Busbar Calculator">
 </div>
@@ -21,7 +21,7 @@
 </div>
 
 <div class="card">
-<a href="/fsae-segment-hand-calc-helper/">
+<a href="/fsae-handcalc/">
 <div class="card-image">
 <img src="/img/placeholder-handcalc.png" alt="Segment HandCalc">
 </div>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="card">
-<a href="/fsae/battery/cooling-tests/battery-cooling-testing/">
+<a href="/battery-cooling-testing/">
 <div class="card-image">
 <img src="/img/placeholder-cooling.png" alt="Battery Cooling">
 </div>

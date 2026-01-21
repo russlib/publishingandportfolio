@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/a-tier-projects/cooling-tests/battery-cooling-testing/","tags":["BCTFSAE"]}
+{"dg-publish":true,"permalink":"/battery-cooling-testing/","tags":["BCTFSAE"]}
 ---
 
 

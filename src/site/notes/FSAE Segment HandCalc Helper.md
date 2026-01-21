@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/portfolio-items-published/src/site/notes/fsae-segment-hand-calc-helper/"}
+{"dg-publish":true,"permalink":"/fsae-handcalc/"}
 ---
 
 

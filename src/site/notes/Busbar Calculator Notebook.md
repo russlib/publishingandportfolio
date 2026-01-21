@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/portfolio-items-published/src/site/notes/busbar-calculator-notebook/","tags":["calculator","published"]}
+{"dg-publish":true,"permalink":"/busbar-calculator/","tags":["calculator","published"]}
 ---
 
 

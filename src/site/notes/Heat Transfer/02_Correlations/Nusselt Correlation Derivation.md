@@ -1,5 +1,5 @@
 ---
-{"dg-publish":true,"permalink":"/heat-transfer/02-correlations/nusselt-correlation-derivation/"}
+{"dg-publish":true,"permalink":"/nusselt-correlation/"}
 ---
 
 
