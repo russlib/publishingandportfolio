@@ -16,17 +16,17 @@ Over the course of endurance (22km, ~25 minutes) our battery pack has to maintai
 It was determined that doing physical airflow testing on our battery would produce higher quality results faster than CFD. The result of this experiment was creating a correlation between fan power and the heat transfer coefficient (cooling ability).
 
 ### Result
-![[correlation_graph.png]]
+![correlation_graph](/img/user/battery-cooling/correlation_graph.png)
 *Fan power vs heat transfer coefficient — the key deliverable from physical testing*
 
 The correlation `h = 9.97 × P^0.462` allows us to predict cooling performance at any fan power setting. At 10W fan power, we achieve h ≈ 24 W/m²K. However, the h-coefficient alone doesn't tell the whole story. As air flows past each row of cells, it absorbs heat and warms up, reducing cooling effectiveness for downstream rows. Our analysis accounts for this cumulative air heating effect to determine realistic "max safe ambient" temperatures, giving us high confidence that our cooling system can maintain cell temperatures below 60°C even in unusually hot conditions.
 
 ### Why Physical Testing?
 
-![[Cad view of 4 columns of enepaq bricks to demonstrate weird airflow path.png|400]]
+![Enepaq module front view](/img/user/battery-cooling/Cad%20view%20of%204%20columns%20of%20enepaq%20bricks%20to%20demonstrate%20weird%20airflow%20path.png)
 *Front view of our module design (23 Enepaq bricks in a module)*
 
-![[render of an enepaq brick to show structure.png|300]]
+![Enepaq brick structure](/img/user/battery-cooling/render%20of%20an%20enepaq%20brick%20to%20show%20structure.png)
 *Single Enepaq brick structure*
 
 The irregular geometry of Enepaq modules makes analytical heat transfer calculations (from array cooling textbook examples) unreliable. Physical testing was the fastest path to valid results.
@@ -34,14 +34,14 @@ The irregular geometry of Enepaq modules makes analytical heat transfer calculat
 ---
 
 ## Contents
-- [[#The Summary|Summary]]
-- [[#Understanding|Understanding]]
-  - [[#CFD vs Experimentation]]
-  - [[#Heat Transfer First Principles and MATLAB Files]]
-  - [[#Remaining Unknowns]]
-- [[#Designing|Designing]]
-- [[#Testing|Testing]]
-- [[#Creating Takeaways|Takeaways]]
+- [Summary](#the-summary)
+- [Understanding](#understanding)
+  - [CFD vs Experimentation](#cfd-vs-experimentation)
+  - [Heat Transfer First Principles and MATLAB Files](#heat-transfer-first-principles-and-matlab-files)
+  - [Remaining Unknowns](#remaining-unknowns)
+- [Designing](#designing)
+- [Testing](#testing)
+- [Takeaways](#creating-takeaways)
 
 ---
 
@@ -63,16 +63,16 @@ $$mc\frac{dT}{dt} = -hA(T_{cell} - T_{ambient})$$
 This project originally started because I set out to create realistic cooling estimates for our battery. I had a brief stint of trying to set up thermal CFD but quickly realized that I was neither confident in heat transfer fundamentals (started this in 2024), nor understood CFD solvers. I ended up asking the FSAE discord and Ethan Perrin (Tesla Battery Engineer, personal communication) pointed me toward IRL physical testing being much more likely to give valid results much faster.
 
 > [!abstract]- CFD Attempts & Discord Advice (click to expand)
-> ![[fancy cfd and nice colors.webp|400]]
+> ![CFD attempt](/img/user/battery-cooling/fancy%20cfd%20and%20nice%20colors.webp)
 > *Very nice colors, oooh ahhhh.*
 >
-> ![[i wanted to do bench testing.png|400]]
+> ![Bench testing idea](/img/user/battery-cooling/i%20wanted%20to%20do%20bench%20testing.png)
 > *I very much wanted to try out testing on the real thing*
 >
-> ![[Pasted image 20260108082347.png|400]]
+> ![Discord advice 1](/img/user/battery-cooling/Pasted%20image%2020260108082347.png)
 > *Getting some advice from the FSAE discord*
 >
-> ![[Pasted image 20260108082634.png|400]]
+> ![Discord advice 2](/img/user/battery-cooling/Pasted%20image%2020260108082634.png)
 > *Put on the path of getting a valid result and not just a result*
 
 *Early attempts at CFD and the conversation that redirected me toward physical testing.*
@@ -84,9 +84,9 @@ The start of this project was in the semester before I had taken my university's
 Here's some of the files in order of what I remember creating. The PDF previews of the live scripts aren't that good, but it was some form of leaving documentation of my process.
 
 > [!tip]- MATLAB Files & Learning Process (click to expand)
-> ![[Heat Transfer First Principles and MATLAB Files Embed Link]]
+> See the full MATLAB learning files: [Heat Transfer First Principles](/heat-transfer-matlab/)
 >
-> ![[badly lableded cooling graph.webp|500]]
+> ![Early cooling graph](/img/user/battery-cooling/badly%20lableded%20cooling%20graph.webp)
 > *What even is 2m/s?*
 
 *Early thermal models I built before taking heat transfer — Array cooling, dynamic similarity, Nusselt correlations*
@@ -130,21 +130,21 @@ The designs worked surprisingly well. The downside was by the time everything ar
 
 ### Mock Brick Design
 
-![[lasercut brick on the desk.webp|500]]
+![Lasercut brick](/img/user/battery-cooling/lasercut%20brick%20on%20the%20desk.webp)
 *Laser-cut mock Enepaq brick with aluminum rods. Similar thermal mass to real 18650 cells*
 
 
 > [!example]- Design Gallery — Mock Brick Photos & CAD (click to expand)
-> ![[3d printed enepaq bricks.jpg|300]]
+> ![3D printed brick](/img/user/battery-cooling/3d%20printed%20enepaq%20bricks.jpg)
 > *3D printed brick*
 >
-> ![[solidworks view of lasercut structure enepaq brick.png|300]]
+> ![CAD model](/img/user/battery-cooling/solidworks%20view%20of%20lasercut%20structure%20enepaq%20brick.png)
 > *CAD model of laser-cut design*
 >
-> ![[lasercut in progress.webp|300]]
+> ![Laser cutting](/img/user/battery-cooling/lasercut%20in%20progress.webp)
 > *Laser cutting in progress*
 >
-> ![[Non transparent LC enepaq brick cad.png|300]]
+> ![CAD view](/img/user/battery-cooling/Non%20transparent%20LC%20enepaq%20brick%20cad.png)
 > *Non-transparent CAD view*
 
 *3D printed and laser-cut mock Enepaq brick designs*
@@ -161,37 +161,37 @@ The physical testing can be broken up into two categories:
 
 Temperature measurement used K-type thermocouples with thermal paste, taped to the aluminum surface. Data was logged via a Chinese TC logger to CSV files.
 
-![[example of scrappy test setup.jpeg|500]]
+![Scrappy test setup](/img/user/battery-cooling/example%20of%20scrappy%20test%20setup.jpeg)
 *Test setup showing thermocouple placement and airflow configuration, this was the first day everything was printed out and the DAQ was working. This is NOT the setup used, its my best photo that displays everything in one view.*
 
-![[messy matlab plot graph from initial enepaq brick testing.webp|500]]
+![Early testing graph](/img/user/battery-cooling/messy%20matlab%20plot%20graph%20from%20initial%20enepaq%20brick%20testing.webp)
 *Early testing with aluminum "dummy" bricks — these initial experiments gave us unusually high h-coefficients due to unreliable thermocouple adherence and didn't account for the "hottest cell rule" or progressive air heating across rows*
 
 ### Real Enepaq Brick Testing
-![[Full Battery Cooling Test Setup.jpeg|500]]
+![Full test setup](/img/user/battery-cooling/Full%20battery%20cooling%20test%20setup%20and%20equipment.jpg)
 *Full test setup overview — Enepaq brick, airflow segment, power supply, and data logging*
 
 The Enepaq brick's built-in thermistors provided comparison data for the live cell tests. These internal sensors are shielded by the plastic casing, which means they lag behind actual cell surface temperature. Important context when comparing to thermocouple readings.
 
 > [!tip]- Test Setup Details (click to expand)
-> ![[closeup of mock enepaq brick vs real vtc6 cell.jpeg|400]]
+> ![Mock vs real cell](/img/user/battery-cooling/closeup%20of%20mock%20enepaq%20brick%20vs%20real%20vtc6%20cell.jpeg)
 > *Mock brick vs real VTC6 cell — aluminum has a similar thermal mass and density*
 >
-> ![[A-Tier Projects/Cooling Tests/Supporting/enepaq brick sensor layout.png|400]]
+> ![Sensor layout](/img/user/battery-cooling/enepaq%20brick%20sensor%20layout.png)
 > *Enepaq temperature sensors are shielded by plastic casing — thermistor readings lag actual cell temperature*
 >
-> ![[mock enepaq bricks in the airflow segment casing  esp32 in background.jpeg|400]]
+> ![Mock bricks in casing](/img/user/battery-cooling/mock%20enepaq%20bricks%20in%20the%20airflow%20segment%20casing%20%20esp32%20in%20background.jpeg)
 > *Mock bricks in airflow segment casing, ESP32 data logger in background*
 >
-> ![[example of the 3d printed mock enepaq bricks to aid in accurate system impedance.jpeg|400]]
+> ![3D printed mock bricks](/img/user/battery-cooling/example%20of%20the%203d%20printed%20mock%20enepaq%20bricks%20to%20aid%20in%20accurate%20system%20impedance.jpeg)
 > *3D printed mock bricks to match system airflow impedance*
 >
-> ![[really clean crimping for high current cables but very messy esp32 setup.jpeg|400]]
+> ![Clean crimping messy ESP32](/img/user/battery-cooling/really%20clean%20crimping%20for%20high%20current%20cables%20but%20very%20messy%20esp32%20setup.jpeg)
 > *Clean crimping on high-current cables... less clean ESP32 wiring*
 >
-> For more details on the instrumentation and data logging system, see [[Battery Cooling Test Setup]] *(documentation in progress)*.
+> For more details on the instrumentation and data logging system, see *Battery Cooling Test Setup (documentation in progress)*.
 >
-> **Data Acquisition Firmware:** [[ESP32-Smart-Power-Source/SYSTEM_ARCHITECTURE|ESP32 Smart Power Source]] — the ESP32 code powering temperature sensing, voltage monitoring, and web-based data logging for these tests.
+> **Data Acquisition Firmware:** ESP32 Smart Power Source — the ESP32 code powering temperature sensing, voltage monitoring, and web-based data logging for these tests.
 
 *Photos of mock bricks, sensor layout, ESP32 wiring, and equipment*
 
@@ -221,7 +221,7 @@ The Enepaq brick's built-in thermistors provided comparison data for the live ce
 
 ### Representative Test Analysis
 
-![[run3_analysis.png]]
+![Run 3 analysis](/img/user/battery-cooling/run3_analysis.png)
 *Run 3 (10k server fan at 10W): Four-axis plot showing h-coefficient stabilization, heat loss, temperature decay, and battery(recovery) voltage over time*
 
 The h-coefficient calculation uses Newton's law of cooling:
@@ -234,7 +234,7 @@ Where:
 
 ### Comparison Across Runs
 
-![[h_comparison.png]]
+![H coefficient comparison](/img/user/battery-cooling/h_comparison.png)
 *Overlay of h-coefficient vs time for all test runs. Faster cooling = shorter test time. Plots truncated to keep clean data. Median h-coefficient is taken from these graphs to avoid the effect of h rising due to thermal inertia.*
 
 > [!info] Additional Technical Details
@@ -254,7 +254,7 @@ Where:
 
 ### The Correlation
 
-![[correlation_graph.png]]
+![correlation_graph](/img/user/battery-cooling/correlation_graph.png)
 *Power law fit: h = 9.97 × P^0.462 for the 10k server fan configuration, blower immediately seen as less effective even at its max nominal power draw*
 
 This correlation is the primary deliverable. It allows predicting heat transfer coefficient for any fan power setting without additional physical testing.
@@ -275,7 +275,7 @@ This correlation is the primary deliverable. It allows predicting heat transfer 
 
 ### Air Temperature Gradient
 
-![[air_temp_gradient.png]]
+![Air temperature gradient](/img/user/battery-cooling/air_temp_gradient.png)
 *Estimated air temperature rise across 6 cell rows — higher fan power reduces cumulative heating*
 
 > [!note] Mass Flow Measurement Pending
@@ -290,7 +290,7 @@ This correlation is the primary deliverable. It allows predicting heat transfer 
 
 ### Analysis Code
 
-Full analysis notebook: [[HCoeffFindingEnepaqCooling]]
+Full analysis notebook: *HCoeffFindingEnepaqCooling (Jupyter notebook - not published)*
 
 Processing pipeline:
 - Smoothing for noise reduction
