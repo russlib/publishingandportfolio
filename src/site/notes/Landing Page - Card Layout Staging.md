@@ -1,7 +1,9 @@
 ---
-{"dg-publish":true,"permalink":"/portfolio-items-published/src/site/notes/landing-page-card-layout-staging/","tags":["staging"]}
+dg-publish: true
+permalink: /landing-page-staging/
+tags:
+  - staging
 ---
-
 
 # Portfolio
 
