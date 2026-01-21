@@ -10,7 +10,7 @@
 <div class="card">
 <a href="/busbar-calculator/">
 <div class="card-image">
-<img src="/img/placeholder-busbar.png" alt="Busbar Calculator">
+<img src="/img/cards/busbar-calculator.png" alt="Busbar Calculator">
 </div>
 <div class="card-content">
 <h3>Busbar Calculator Notebook</h3>
@@ -23,7 +23,7 @@
 <div class="card">
 <a href="/fsae-handcalc/">
 <div class="card-image">
-<img src="/img/placeholder-handcalc.png" alt="Segment HandCalc">
+<img src="/img/cards/fsae-handcalc.png" alt="Segment HandCalc">
 </div>
 <div class="card-content">
 <h3>FSAE Segment HandCalc Helper</h3>
@@ -36,7 +36,7 @@
 <div class="card">
 <a href="/battery-cooling-testing/">
 <div class="card-image">
-<img src="/img/placeholder-cooling.png" alt="Battery Cooling">
+<img src="/img/cards/battery-cooling.png" alt="Battery Cooling">
 </div>
 <div class="card-content">
 <h3>Battery Cooling Testing</h3>
