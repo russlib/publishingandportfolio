@@ -23,10 +23,47 @@ body {
         padding: 0.5rem !important;
     }
 
-    /* Center the site name and make it static (not sticky) */
+    /* Navbar: name on left, links on right, static position */
     .navbar {
-        justify-content: center !important;
         position: static !important;
+        padding: 0 1rem !important;
+    }
+
+    .navbar-inner {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .navbar-link.linkedin {
+        color: #333;
+        text-decoration: underline;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .navbar-link.linkedin:hover {
+        color: #10b981;
+    }
+
+    .navbar-separator {
+        color: #999;
+        font-size: 1rem;
+    }
+
+    .navbar-email {
+        color: #333;
+        font-size: 1rem;
+        font-weight: 400;
     }
 
     /* B6 - Text BELOW image, solid color panels like batch-003-c5 */
