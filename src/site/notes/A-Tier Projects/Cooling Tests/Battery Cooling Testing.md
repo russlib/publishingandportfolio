@@ -7,13 +7,11 @@
 > [!note] Context
 > This work was conducted for the University of Victoria Formula SAE team's electric vehicle battery pack (2026 season).
 
-## The Summary
-
 ### Motivation
 Over the course of endurance (22km, ~25 minutes) our battery pack has to maintain temperatures under 60°C (FSAE rules for maximum cell temperature). My cell and race profile modeling tools showed either cooling or power limiting must be done to keep our pack within temperatures.
 
 ### Action
-It was determined that doing physical airflow testing on our battery would produce higher quality results faster than CFD. The result of this experiment was creating a correlation between fan power and the heat transfer coefficient (cooling ability).
+I decided physical testing would be faster than CFD. The result of this experiment was creating a correlation between fan power and the heat transfer coefficient (cooling ability).
 
 ### Result
 ![correlation_graph](/img/user/battery-cooling/correlation_graph.png)
@@ -23,18 +21,26 @@ The correlation `h = 9.97 × P^0.462` allows us to predict cooling performance a
 
 ### Why Physical Testing?
 
+<div class="image-row">
+<div class="image-col">
+
 ![Enepaq module front view](/img/user/battery-cooling/Cad%20view%20of%204%20columns%20of%20enepaq%20bricks%20to%20demonstrate%20weird%20airflow%20path.png)
 *Front view of our module design (23 Enepaq bricks in a module)*
 
+</div>
+<div class="image-col">
+
 ![Enepaq brick structure](/img/user/battery-cooling/render%20of%20an%20enepaq%20brick%20to%20show%20structure.png)
 *Single Enepaq brick structure*
+
+</div>
+</div>
 
 The irregular geometry of Enepaq modules makes analytical heat transfer calculations (from array cooling textbook examples) unreliable. Physical testing was the fastest path to valid results.
 
 ---
 
 ## Contents
-- [Summary](#the-summary)
 - [Understanding](#understanding)
   - [CFD vs Experimentation](#cfd-vs-experimentation)
   - [Heat Transfer First Principles and MATLAB Files](#heat-transfer-first-principles-and-matlab-files)
@@ -42,6 +48,13 @@ The irregular geometry of Enepaq modules makes analytical heat transfer calculat
 - [Designing](#designing)
 - [Testing](#testing)
 - [Takeaways](#creating-takeaways)
+
+> [!abstract]- Photo Galleries & Supporting Details (click to expand)
+> Jump to expandable sections:
+> - **CFD Attempts & Discord Advice** — in [CFD vs Experimentation](#cfd-vs-experimentation)
+> - **MATLAB Files & Learning Process** — in [Heat Transfer First Principles](#heat-transfer-first-principles-and-matlab-files)
+> - **Design Gallery — Mock Brick Photos & CAD** — in [Designing](#designing)
+> - **Test Setup Details** — in [Testing](#testing)
 
 ---
 
@@ -52,7 +65,7 @@ The irregular geometry of Enepaq modules makes analytical heat transfer calculat
 The fundamental energy balance for cell cooling:
 $$\dot{Q}_{gen} = \dot{Q}_{conv} + \dot{Q}_{rad} + \dot{Q}_{cond} + \dot{Q}_{stored}$$
 
-During cooldown testing, we simplify by eliminating heat generation and assuming convection dominates:
+For cooldown, Q_gen = 0 and convection is the main heat path:
 $$\cancel{\dot{Q}_{gen}} = \dot{Q}_{conv} + \cancel{\dot{Q}_{rad}} + \cancel{\dot{Q}_{cond}} + \dot{Q}_{stored}$$
 
 Which gives us Newton's law of cooling with thermal mass:
@@ -104,7 +117,7 @@ The MATLAB models gave me fundamental understanding, but several parameters rema
 - **Cumulative error** — how do uncertainties compound in detailed models?
   - *Future: Find an elegant/intuitive way to display this*
 
-These unknowns motivated physical testing over analytical approaches.
+Too many unknowns to trust a model.
 
 ---
 
@@ -153,7 +166,7 @@ The designs worked surprisingly well. The downside was by the time everything ar
 
 ## Testing
 
-The physical testing can be broken up into two categories:
+There were two types of tests:
 - Aluminum mock Enepaq brick (heated externally by heat gun)
 - Real Enepaq brick (heated by electrical discharge)
 
@@ -257,7 +270,7 @@ Where:
 ![correlation_graph](/img/user/battery-cooling/correlation_graph.png)
 *Power law fit: h = 9.97 × P^0.462 for the 10k server fan configuration, blower immediately seen as less effective even at its max nominal power draw*
 
-This correlation is the primary deliverable. It allows predicting heat transfer coefficient for any fan power setting without additional physical testing.
+This correlation is what the testing was for. It allows predicting heat transfer coefficient for any fan power setting without additional physical testing.
 
 ### Golden Table — w/ High Safety Margins*†
 

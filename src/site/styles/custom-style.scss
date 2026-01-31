@@ -3,11 +3,308 @@ body {
       ADD YOUR CUSTOM STYLING HERE. (INSIDE THE body {...} section.)
       IT WILL TAKE PRECEDENCE OVER THE STYLING IN THE STYLE.CSS FILE.
    ***/
-    //  background-color: white;
-    //  .content {
-    //   font-size: 14px;
-    //  }
-    //  h1 {
-    //   color: black;
-    //  }
+
+    /* Override site container to allow full width */
+    .content {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .container {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .cm-s-obsidian {
+        max-width: 100% !important;
+        padding: 0.5rem !important;
+    }
+
+    /* Bigger Contents section */
+    .cm-s-obsidian h2#contents {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .cm-s-obsidian h2#contents + ul,
+    .cm-s-obsidian h2#contents + ul ul {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    /* Add spacing after h1 headings */
+    .cm-s-obsidian h1 {
+        margin-bottom: 0.75rem;
+    }
+
+    /* Center images and captions */
+    .cm-s-obsidian p img {
+        display: block;
+        margin: 1rem auto;
+        max-width: 100%;
+    }
+
+    .cm-s-obsidian p img + br + em,
+    .cm-s-obsidian p em:only-child,
+    .cm-s-obsidian p > em:last-child {
+        display: block;
+        text-align: center;
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: -0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Collapsible callouts - make them more obvious */
+    .callout.is-collapsible {
+        cursor: pointer;
+        border: 2px solid currentColor;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .callout.is-collapsible:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
+    }
+
+    .callout.is-collapsible .callout-title {
+        font-weight: 600;
+    }
+
+    /* Hide the default SVG chevron */
+    .callout.is-collapsible .callout-fold svg {
+        display: none !important;
+    }
+
+    /* Replace with + icon in colored circle */
+    .callout.is-collapsible .callout-fold {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        background: currentColor;
+        border-radius: 50%;
+        transition: transform 0.2s ease;
+    }
+
+    .callout.is-collapsible .callout-fold::before {
+        content: '+';
+        color: white;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 1;
+    }
+
+    .callout.is-collapsible:not(.is-collapsed) .callout-fold::before {
+        content: '−';
+    }
+
+    /* Side-by-side images */
+    .image-row {
+        display: flex;
+        gap: 3%;
+        justify-content: center;
+        align-items: flex-end;
+        margin: 0.5rem auto;
+        max-width: 90%;
+    }
+
+    .image-col {
+        flex: 1;
+        max-width: 45%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-col img {
+        width: 100%;
+        max-height: 400px;
+        object-fit: contain;
+    }
+
+    .image-col em {
+        display: block;
+        color: #666;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 700px) {
+        .image-row {
+            flex-direction: column;
+        }
+        .image-col {
+            max-width: 100%;
+        }
+    }
+
+    /* Navbar: name on left, links on right, static position */
+    .navbar {
+        position: static !important;
+        padding: 0 1rem !important;
+    }
+
+    .navbar-inner {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    .navbar-link.linkedin {
+        color: #333;
+        text-decoration: underline;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .navbar-link.linkedin:hover {
+        color: #10b981;
+    }
+
+    .navbar-separator {
+        color: #999;
+        font-size: 1rem;
+    }
+
+    .navbar-email {
+        color: #333;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    /* B6 - Text BELOW image, solid color panels like batch-003-c5 */
+    .b6-grid {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 1rem;
+        width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
+        align-items: start;
+    }
+
+    .b6-hero {
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .b6-hero:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(16, 185, 129, 0.25);
+    }
+
+    .b6-hero-img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .b6-hero-content {
+        background: #10b981;
+        padding: 1rem 1.25rem;
+        color: white;
+    }
+
+    .b6-tag {
+        display: inline-block;
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.4rem;
+        background: rgba(0,0,0,0.2);
+    }
+
+    .b6-hero-content h2 {
+        margin: 0 0 0.3rem 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .b6-hero-content p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: rgba(255,255,255,0.9);
+    }
+
+    .b6-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .b6-card {
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none !important;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .b6-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 24px rgba(124, 58, 237, 0.2);
+    }
+
+    .b6-card-img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top;
+    }
+
+    .b6-card-content {
+        background: #7c3aed;
+        padding: 0.75rem 1rem;
+        color: white;
+    }
+
+    .b6-card-content h3 {
+        margin: 0 0 0.15rem 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .b6-card-content p {
+        margin: 0;
+        font-size: 0.7rem;
+        color: rgba(255,255,255,0.9);
+    }
+
+    @media (max-width: 800px) {
+        .b6-grid {
+            grid-template-columns: 1fr;
+        }
+        .b6-sidebar {
+            flex-direction: row;
+        }
+    }
+
+    @media (max-width: 550px) {
+        .b6-sidebar {
+            flex-direction: column;
+        }
+    }
 }
