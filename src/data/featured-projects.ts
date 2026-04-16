@@ -18,7 +18,7 @@ export const featuredProjects: FeaturedProject[] = [
     slug: "motor-control-characterization",
     name: "Motor Testing & Characterization",
     thumbnail: "/projects/motor-control-characterization/h2-all-runs-overview.png",
-    hook: "D6374 BLDC characterized across two controllers (ODrive + VESC) for cross-validation. Fried an ODrive along the way.",
+    hook: "Built a BLDC characterization bench across ODrive and VESC to separate motor behavior from controller artifacts. Extracted Kt, Kv, friction, and inertia from real test data.",
   },
   {
     slug: "fsae-gear-ratio-selection",
@@ -47,7 +47,7 @@ export const featuredProjects: FeaturedProject[] = [
   {
     slug: "fsae-battery-pack-mounts-jig",
     name: "FSAE Battery Pack Mounts Jig",
-    hook: "Dual-purpose welding jig with a single base plate and swappable inserts for aluminum TIG and steel weld configs.",
+    hook: "Welding jig with swappable inserts so placement tables survive repeated TIG passes without a full rebuild.",
     tier: "mini",
   },
 ];

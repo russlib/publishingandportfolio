@@ -16,10 +16,9 @@ export function MotorControlCharacterizationContent() {
           controller artifacts, and the iteration history behind each result.
         </p>
         <p>
-          <strong>Status:</strong> in progress. Static and no-load dynamic tests closed, H2 flywheel
-          spin-up done with known constraints with the ODrive 3.6 board while it was functional,
-          loaded steady-state work blocked by a known identifiability issue in the gearbox + freehub
-          path (plan written).
+          <strong>Status:</strong> six closed findings across static, dynamic, and friction
+          characterization, cross-validated on two controllers. Loaded steady-state testing blocked
+          on a known flywheel identifiability issue (isolation plan written).
         </p>
 
         <h3>Why I built this</h3>
@@ -30,6 +29,47 @@ export function MotorControlCharacterizationContent() {
           motor through both an ODrive and a VESC, fried one of them along the way, and ended up
           with results I understand from the instrument up.
         </p>
+
+        <h3>Closed results</h3>
+        <div className="overflow-x-auto my-[24px]">
+          <table className="text-[13px]">
+            <thead>
+              <tr><th>Finding</th><th>Result</th><th>Signal</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kt cross-validation</td>
+                <td>0.0551 / 0.0558 Nm/A (1.3% agreement)</td>
+                <td>Two independent controllers confirm the same physical constant</td>
+              </tr>
+              <tr>
+                <td>Kv</td>
+                <td>143.6 &plusmn; 0.7 RPM/V over 5 points</td>
+                <td>4.3% below datasheet; tight bench spread</td>
+              </tr>
+              <tr>
+                <td>Sensorless observer overhead</td>
+                <td>0.85 A</td>
+                <td>Quantified by running both sensored and sensorless on the same motor</td>
+              </tr>
+              <tr>
+                <td>Rotor inertia</td>
+                <td>170&ndash;175 g&middot;mm&sup2;</td>
+                <td>Matched spin-up / coast-down technique, friction-independent extraction</td>
+              </tr>
+              <tr>
+                <td>Friction after casing rebuild</td>
+                <td>45% Tc/J drop, 100&times; repeatability improvement</td>
+                <td>Isolated a rotor rub, proved it with before / after data</td>
+              </tr>
+              <tr>
+                <td>Multi-current inertia drift</td>
+                <td>Telemetry bias, not mechanical</td>
+                <td>Ruled out by holding friction constant; drift persisted identically</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <hr className="section-rule my-[48px]" />
@@ -537,7 +577,7 @@ export function MotorControlCharacterizationContent() {
         <Figure
           src={img("photo-029-odrive-m0-driver-chip-damage.jpg")}
           alt="Damaged M0 driver IC on the ODrive 3.6 with visible package damage"
-          caption="Damaged M0 driver IC on the ODrive 3.6. Chipped / cracked package visible on the power stage. TODO: crop this image to the board only (laptop in background) and swap in the cropped version."
+          caption="Damaged M0 driver IC on the ODrive 3.6. Chipped / cracked package visible on the power stage."
         />
 
         <Figure

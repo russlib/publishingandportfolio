@@ -88,19 +88,6 @@ export const skills: Record<string, Skill> = {
       }
     ]
   },
-  "fea": {
-    "id": "fea",
-    "name": "FEA & Analysis",
-    "status": "in-progress",
-    "preview": "Work in progress. Current stress analysis is calculator/spreadsheet-based (Hertzian, Lewis, energy methods). Planning a basic FEA demo project to build and demonstrate fundamentals.",
-    "evidence": [
-      {
-        "project": "Hand Calculations (Current Approach)",
-        "description": "Hertzian contact stress, Lewis bending, energy methods, all spreadsheet/calculator-level complexity. This is honest: most of the engineering work I do is at this level, and for battery design a good spreadsheet often is the right tool. FEA software experience is the gap."
-      }
-    ],
-    "gap_note": "Work in progress. Planning: basic FEA demo project covering mesh convergence, boundary conditions, and part optimization in SolidWorks Simulation. Goal is to demonstrate I understand the fundamentals, not claim expertise I don't have."
-  },
   "first-principles": {
     "id": "first-principles",
     "name": "First-Principles Problem Solving",
@@ -117,7 +104,7 @@ export const skills: Record<string, Skill> = {
       },
       {
         "project": "Nusselt Correlation Derivation",
-        "description": "First-principles derivation of $Nu = C \\cdot Re^m \\cdot Pr^n$ rearranged to isolate $h$. Shows the velocity exponent $m$ dominates the scaling, so doubling cooling capacity roughly needs 16× fan power (fan affinity laws, $m \\approx 0.7$). Grounds the empirical h-correlation I derived on the FSAE accumulator."
+        "description": "First-principles derivation of Nu = C Re^m Pr^n rearranged to isolate h. Shows the velocity exponent m dominates the scaling, so doubling cooling capacity roughly needs 16x fan power (fan affinity laws, m ~ 0.7). Grounds the empirical h-correlation I derived on the FSAE accumulator."
       },
       {
         "project": "FSAE Segment Structural HandCalcs",

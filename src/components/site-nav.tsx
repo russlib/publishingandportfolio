@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, FileText, Home } from "lucide-react";
+import { ArrowLeft, FileText, Home, Mail } from "lucide-react";
 import { resumeUrl } from "@/data/resume";
+
+const navLinkClass =
+  "flex items-center gap-[6px] rounded-[10px] px-[10px] py-[6px] text-[13px] font-medium transition-colors hover:bg-black/[0.04]";
+const navLinkColor = { color: "#687385" } as const;
 
 export function SiteNav({ showBack = true }: { showBack?: boolean }) {
   return (
@@ -10,7 +14,7 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
         {showBack ? (
           <Button variant="ghost" size="sm" nativeButton={false} render={<Link href="/" />}>
             <ArrowLeft data-icon="inline-start" className="size-4" />
-            Back to posting
+            Home
           </Button>
         ) : (
           <span className="text-[16px] font-medium" style={{ letterSpacing: "-0.3px" }}>
@@ -23,11 +27,30 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
             href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-[6px] rounded-[10px] px-[10px] py-[6px] text-[13px] font-medium transition-colors hover:bg-black/[0.04]"
-            style={{ color: "#687385" }}
+            className={navLinkClass}
+            style={navLinkColor}
           >
             <FileText className="size-[14px]" />
             Resume
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/russellbilinski/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={navLinkClass}
+            style={navLinkColor}
+          >
+            LinkedIn
+          </a>
+
+          <a
+            href="mailto:ruzzcraze@gmail.com"
+            className={navLinkClass}
+            style={navLinkColor}
+          >
+            <Mail className="size-[14px]" />
+            Email
           </a>
 
           <Link
@@ -35,10 +58,10 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
             className="group flex items-center gap-[8px] rounded-[10px] px-[10px] py-[6px] transition-colors hover:bg-black/[0.04]"
             aria-label="Home"
           >
-            <span className="text-[13px] font-medium" style={{ color: "#687385" }}>
+            <span className="text-[13px] font-medium" style={navLinkColor}>
               {showBack ? "Russell Bilinski" : "Portfolio"}
             </span>
-            <Home className="size-[14px]" style={{ color: "#687385" }} />
+            <Home className="size-[14px]" style={navLinkColor} />
           </Link>
         </div>
       </div>
