@@ -76,6 +76,13 @@ export function FsaeSegmentStructuralHandcalcsContent() {
           calculations expected for 2026, and sanity checks I wanted for solid mechanical design.
         </p>
 
+        <p>
+          <strong>Design verdict:</strong> Governing case is lid bending under SES 20g vertical
+          load, SF 1.75. That set the polycarbonate lid at 3/8&quot; thickness. All seven load
+          cases pass SES crash requirements. Bolts, bond, and buckling all clear with margin. No
+          redesign needed, the existing geometry and bolt scheme hold.
+        </p>
+
         <ColabBadge
           href="https://colab.research.google.com/github/russlib/SegmentHandCalcs/blob/main/FSAESegmentHandCalcs.ipynb"
           caption="Open the Colab notebook to change dimensions, materials, or load factors and re-run."

@@ -10,6 +10,23 @@ export function BatteryCoolingContent() {
       <section>
         <h2>The Summary</h2>
 
+        <p>
+          <strong>Decision:</strong> 6 W server fan operating point. Delivers{" "}
+          <InlineEquation tex="h \approx 21\;\text{W/m}^2\text{K}" />, holding cells under
+          60 &deg;C up to 39 &deg;C ambient, which covers nearly all FSAE competition conditions.
+          Enough margin to downgrade from a 10k to a 7k RPM fan without risk.
+        </p>
+        <p>
+          <strong>What it eliminated:</strong> Whether our pack needed active cooling at all, how
+          much fan power, and which fan topology. Server fans outperforming blowers at equal power
+          was the unexpected result that changed the hardware selection.
+        </p>
+        <p>
+          <strong>Evidence boundary:</strong> The h-correlation itself is experimentally validated
+          across four power levels. Max safe ambient estimates depend on mass flow rate, which was
+          back-calculated from h rather than measured directly.
+        </p>
+
         <h3>Motivation</h3>
         <p>
           Over the course of endurance (22 km, ~25 minutes) our battery pack has to maintain

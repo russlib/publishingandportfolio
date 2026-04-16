@@ -39,6 +39,12 @@ export const featuredProjects: FeaturedProject[] = [
     hook: "Lid bending, fastener tension / shear, Euler-Johnson buckling, and bond strength under SES 20g / 40g crash loads. All safety factors above 1.",
   },
   {
+    slug: "high-school-robotics-growth-arc",
+    name: "High School Robotics — Growth Arc",
+    hook: "Dead last in 9th grade. Regional champions and worlds qualifiers by 11th. Lead programmer in 12th, responsible for ~80-90% of programming run points.",
+    tier: "mini",
+  },
+  {
     slug: "nusselt-correlation-derivation",
     name: "Nusselt Correlation Derivation",
     hook: "Derivation showing h scaling with velocity. With m ≈ 0.7 and fan affinity laws, doubling cooling takes ~16× fan power.",

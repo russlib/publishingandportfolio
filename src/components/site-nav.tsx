@@ -35,7 +35,7 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
           </a>
 
           <a
-            href="https://www.linkedin.com/in/russellbilinski/"
+            href="https://www.linkedin.com/in/russell-bilinski/"
             target="_blank"
             rel="noopener noreferrer"
             className={navLinkClass}

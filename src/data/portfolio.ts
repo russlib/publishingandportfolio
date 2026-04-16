@@ -76,11 +76,16 @@ export const skills: Record<string, Skill> = {
     "id": "controls",
     "name": "Controls & Motor Control",
     "status": "demonstrated",
-    "preview": "PID tuning on real hardware (ODrive + VESC), motor characterization, trapezoidal trajectory control. Practical experience tuning based on parameters, seeing how gains, inertia, and damping affect behavior. Reflected inertia concepts. Ties back to FSAE: using theory to lock in specs.",
+    "preview": "PID tuning on real hardware (ODrive + VESC), motor characterization, trajectory control. Lead programmer on a competitive VEX robotics team (dead last to regional champions in 2 years). Practical experience tuning gains against real inertia, friction, and backlash.",
     "evidence": [
       {
         "project": "Motor Control & Characterization",
-        "description": "Work in progress. Will be a lot stronger once I have motor + gearbox + end effector testing done. Might end up being VESC motor control depending on which hardware I'm running."
+        "description": "D6374 BLDC on ODrive 3.6 and VESC. Tuned position/velocity/integrator gains across bare motor, 5:1 gearbox, and gearbox+flywheel configs. Gearbox needed ~3x stiffer position gain and 4x integrator gain to handle reflected inertia. Discovered torque control fails with any backlash (hunting at 1-4 turns/s); velocity control with integrator capping stabilizes. Real data, real hardware, real failures."
+      },
+      {
+        "project": "High School Robotics — Growth Arc",
+        "description": "Lead programmer in 12th grade on a competitive VEX team. Wrote autonomous routines, PID-tuned drive and mechanisms, built state machines for match strategy. Responsible for ~80-90% of programming run points. Team went from dead last (9th grade) to regional champions and worlds qualifiers (11th grade).",
+        "metric": "Regional champions · Worlds qualifier · Lead programmer"
       },
       {
         "project": "MATLAB Dynamics Study",
