@@ -4,6 +4,7 @@ export type FeaturedProject = {
   thumbnail?: string;
   fallbackTex?: string;
   hook: string;
+  tier?: "mini";
 };
 
 export const featuredProjects: FeaturedProject[] = [
@@ -40,13 +41,13 @@ export const featuredProjects: FeaturedProject[] = [
   {
     slug: "nusselt-correlation-derivation",
     name: "Nusselt Correlation Derivation",
-    fallbackTex: "h = C \\cdot L^{m-1} \\cdot V^m \\cdot \\nu^{n-m} \\cdot \\rho^n \\cdot C_p^n \\cdot k^{1-n}",
     hook: "Derivation showing h scaling with velocity. With m ≈ 0.7 and fan affinity laws, doubling cooling takes ~16× fan power.",
+    tier: "mini",
   },
   {
     slug: "fsae-battery-pack-mounts-jig",
     name: "FSAE Battery Pack Mounts Jig",
-    thumbnail: "/projects/fsae-battery-pack-mounts-jig/finished-assembly.png",
     hook: "Dual-purpose welding jig with a single base plate and swappable inserts for aluminum TIG and steel weld configs.",
+    tier: "mini",
   },
 ];

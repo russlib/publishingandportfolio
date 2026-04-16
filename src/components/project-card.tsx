@@ -14,6 +14,7 @@ const statusDot = {
 export function ProjectCard({ project }: { project: FeaturedProject }) {
   const meta = projects[project.slug];
   const skillEntries = meta?.skills ?? [];
+  const isMini = project.tier === "mini";
 
   return (
     <Link
@@ -24,35 +25,51 @@ export function ProjectCard({ project }: { project: FeaturedProject }) {
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.03)",
       }}
     >
-      <div
-        className="relative aspect-[16/10] w-full overflow-hidden"
-        style={{
-          background: project.thumbnail
-            ? "#f5f7fa"
-            : "linear-gradient(135deg, #e8edf5 0%, #d8e0ee 100%)",
-        }}
-      >
-        {project.thumbnail ? (
-          <Image
-            src={project.thumbnail}
-            alt={project.name}
-            fill
-            sizes="(max-width: 1280px) 100vw, 520px"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-            unoptimized
-          />
-        ) : project.fallbackTex ? (
-          <div className="absolute inset-0 flex items-center justify-center px-[24px] text-center">
-            <div className="text-[14px]" style={{ color: "#3c4257" }}>
-              <InlineEquation tex={project.fallbackTex} />
+      {!isMini && (
+        <div
+          className="relative aspect-[16/10] w-full overflow-hidden"
+          style={{
+            background: project.thumbnail
+              ? "#f5f7fa"
+              : "linear-gradient(135deg, #e8edf5 0%, #d8e0ee 100%)",
+          }}
+        >
+          {project.thumbnail ? (
+            <Image
+              src={project.thumbnail}
+              alt={project.name}
+              fill
+              sizes="(max-width: 1280px) 100vw, 520px"
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              unoptimized
+            />
+          ) : project.fallbackTex ? (
+            <div className="absolute inset-0 flex items-center justify-center px-[24px] text-center">
+              <div className="text-[14px]" style={{ color: "#3c4257" }}>
+                <InlineEquation tex={project.fallbackTex} />
+              </div>
             </div>
-          </div>
-        ) : null}
-      </div>
+          ) : null}
+        </div>
+      )}
       <div className="px-[20px] py-[18px]">
-        <h3 className="text-[17px] font-medium leading-[24px]" style={{ color: "#181818" }}>
-          {project.name}
-        </h3>
+        <div className="flex items-start justify-between gap-[12px]">
+          <h3 className="text-[17px] font-medium leading-[24px]" style={{ color: "#181818" }}>
+            {project.name}
+          </h3>
+          {isMini && (
+            <span
+              className="mt-[2px] shrink-0 rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+              style={{
+                borderColor: "rgba(0,0,0,0.1)",
+                color: "#687385",
+                background: "rgba(0,0,0,0.02)",
+              }}
+            >
+              Mini
+            </span>
+          )}
+        </div>
         <p className="mt-[8px] text-[13px] leading-[20px]" style={{ color: "#687385" }}>
           {project.hook}
         </p>

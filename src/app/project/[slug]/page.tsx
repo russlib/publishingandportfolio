@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
+import { featuredProjects } from "@/data/featured-projects";
 import { getProjectContent } from "@/components/project-content";
 import { SiteNav } from "@/components/site-nav";
 import { Badge } from "@/components/ui/badge";
@@ -47,6 +48,9 @@ export default async function ProjectPage({
   const project = projects[slug];
   if (!project) notFound();
 
+  const featured = featuredProjects.find((f) => f.slug === slug);
+  const isMini = featured?.tier === "mini";
+
   const Content = await getProjectContent(slug);
 
   return (
@@ -57,9 +61,23 @@ export default async function ProjectPage({
         {/* Header */}
         <div className="mt-[48px]">
           <p className="text-[11px] font-medium tracking-[0.5px] uppercase mb-[16px]" style={{ color: "#687385" }}>
-            Project
+            {isMini ? "Mini Project" : "Project"}
           </p>
-          <h1 className="text-[40px] leading-[48px]">{project.name}</h1>
+          <div className="flex items-start gap-[12px] flex-wrap">
+            <h1 className="text-[40px] leading-[48px]">{project.name}</h1>
+            {isMini && (
+              <span
+                className="mt-[14px] shrink-0 rounded-full border px-[10px] py-[3px] text-[11px] font-medium uppercase tracking-[0.5px]"
+                style={{
+                  borderColor: "rgba(0,0,0,0.1)",
+                  color: "#687385",
+                  background: "rgba(0,0,0,0.02)",
+                }}
+              >
+                Mini
+              </span>
+            )}
+          </div>
 
           {/* Skill badges */}
           <div className="mt-[20px] flex flex-wrap gap-[8px]">

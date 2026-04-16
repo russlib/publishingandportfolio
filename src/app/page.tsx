@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { FileText } from "lucide-react";
 import { skills } from "@/data/portfolio";
 import { posting } from "@/data/posting";
 import { getProjectSlug } from "@/data/projects";
 import { featuredProjects } from "@/data/featured-projects";
+import { resumeUrl } from "@/data/resume";
 import type { Skill } from "@/data/portfolio";
 import type { Segment } from "@/data/posting";
 import {
@@ -158,9 +160,21 @@ export default function Home() {
           <span className="text-[16px] font-medium" style={{ letterSpacing: "-0.3px" }}>
             {meta.applicant}
           </span>
-          <span className="text-[13px]" style={{ color: "#687385" }}>
-            Optimus Actuator Design &middot; Portfolio
-          </span>
+          <div className="flex items-center gap-[12px]">
+            <span className="hidden text-[13px] sm:inline" style={{ color: "#687385" }}>
+              Optimus Actuator Design &middot; Portfolio
+            </span>
+            <a
+              href={resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-[6px] rounded-[10px] px-[10px] py-[6px] text-[13px] font-medium transition-colors hover:bg-black/[0.04]"
+              style={{ color: "#181818" }}
+            >
+              <FileText className="size-[14px]" />
+              Resume
+            </a>
+          </div>
         </div>
       </nav>
 

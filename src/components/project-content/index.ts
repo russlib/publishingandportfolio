@@ -15,6 +15,8 @@ const registry: Record<string, () => Promise<{ default: ComponentType }>> = {
     import("./fsae-segment-structural-handcalcs").then((m) => ({ default: m.FsaeSegmentStructuralHandcalcsContent })),
   "nusselt-correlation-derivation": () =>
     import("./nusselt-correlation-derivation").then((m) => ({ default: m.NusseltCorrelationDerivationContent })),
+  "hv-junction-box": () =>
+    import("./hv-junction-box").then((m) => ({ default: m.HvJunctionBoxContent })),
 };
 
 export function hasProjectContent(slug: string): boolean {
