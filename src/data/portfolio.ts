@@ -33,7 +33,7 @@ export const skills: Record<string, Skill> = {
         "description": "Modified open-source gear library to generate STEP files directly (portable, CAD-agnostic profiles). Interference sweeps to find backlash targets. My part of the QDD actuator was gear train design, STEP export, and design direction. Teammate owned bearing integration and CATIA assembly."
       },
       {
-        "project": "High-Voltage Junction Box",
+        "project": "HV Junction Box",
         "description": "Full SolidWorks part and assembly modeling for FSAE HV junction box. Made engineering drawings for manufactured parts."
       },
       {
@@ -58,7 +58,7 @@ export const skills: Record<string, Skill> = {
         "metric": "First dedicated VD lead in 2 years"
       },
       {
-        "project": "LAPSIM — Decision Communication",
+        "project": "FSAE Laptime Simulations",
         "description": "The sim is only useful if the team can act on it. I pick which outputs to show and how to frame them so an engineering choice is obvious, not buried in data."
       },
       {
@@ -79,7 +79,7 @@ export const skills: Record<string, Skill> = {
     "preview": "PID tuning on real hardware (ODrive + VESC), motor characterization, trapezoidal trajectory control. Practical experience tuning based on parameters, seeing how gains, inertia, and damping affect behavior. Reflected inertia concepts. Ties back to FSAE: using theory to lock in specs.",
     "evidence": [
       {
-        "project": "ODrive Motor Control",
+        "project": "Motor Control & Characterization",
         "description": "Work in progress. Will be a lot stronger once I have motor + gearbox + end effector testing done. Might end up being VESC motor control depending on which hardware I'm running."
       },
       {
@@ -108,7 +108,7 @@ export const skills: Record<string, Skill> = {
     "preview": "Start from physics, not templates. Energy balances, ODE heat transfer, thermal modeling. Want to show equations on the portfolio with graphs showing how they relate, demonstrating that I understand the relationships, not just the formula.",
     "evidence": [
       {
-        "project": "Battery Cooling — h-Correlation",
+        "project": "Battery Cooling Testing",
         "description": "Discharged cells, built a test rig, collected thermocouple data, and derived an h-correlation from it. There's no guidebook for cooling an FSAE accumulator with irregular geometry, so I just did the heat transfer from scratch. Touches a lot of skills in one go."
       },
       {
@@ -147,7 +147,7 @@ export const skills: Record<string, Skill> = {
         "description": "Had a 3D printer since 11th grade. Heavily modified it (extruder, Klipper on a Raspberry Pi back before that was easy). Know FDM tolerances, material tradeoffs, and how to design parts that actually print well."
       },
       {
-        "project": "QDD Actuator — FDM Gearbox",
+        "project": "QDD Actuator",
         "description": "Decision tables for specs, motor control, testing. All geometry designed around FDM constraints. More detail to come (need to get Aaron's input on his contributions)."
       },
       {
@@ -155,11 +155,11 @@ export const skills: Record<string, Skill> = {
         "description": "Designed UV24 and redesigned UV26 high-voltage junction boxes. Drew engineering drawings for manufactured parts. Also got into first-principles high-current/high-voltage design and bolt science. Had to problem-solve to get it on the car under time pressure."
       },
       {
-        "project": "Accumulator Build",
+        "project": "FSAE Battery Pack Mounts Jig",
         "description": "Built the jig for accumulator mounting. A lot of thought went into tolerances and how it interfaces with the rest of the car, even though the end solution was simple."
       },
       {
-        "project": "Battery Cooling Test Rig",
+        "project": "Battery Cooling Testing",
         "description": "Built the physical airflow test rig. Has a detailed writeup already (link to project page)."
       }
     ]
@@ -171,11 +171,11 @@ export const skills: Record<string, Skill> = {
     "preview": "DFM across FDM, laser cut, and welding. Worked with suppliers on prototype parts. Engineering drawings for HV junction box and jigs. GD&T is a gap. Building toward it.",
     "evidence": [
       {
-        "project": "QDD Actuator — FDM-Driven Design",
+        "project": "QDD Actuator",
         "description": "Started with decision tables for spec definition. Spent a lot of time on first principles of 3D-printed gear design and what actually works in FDM. Initial gear design concepts. Aaron did more of the CAD; I focused on design direction and analysis."
       },
       {
-        "project": "Accumulator Jigs — DFM in the Shop",
+        "project": "FSAE Battery Pack Mounts Jig",
         "description": "Machine shop work, bending metal, coordinating with welders. DFM here was asking the right questions, communicating to fabricators, keeping complexity low. The jig worked well despite being simple."
       },
       {
@@ -192,12 +192,8 @@ export const skills: Record<string, Skill> = {
     "preview": "30k+ LOC Python connected to physics: 7DOF lap sim with Newton+SciPy solvers, SolidWorks COM automation, 1GB+ telemetry processing, transient ODE heat transfer. Haven't modeled an actuator specifically, but I model battery systems, vehicle dynamics, and thermal systems in code. The pattern transfers. Fluent MATLAB.",
     "evidence": [
       {
-        "project": "LAPSIM Family",
-        "description": "Three lap sim tiers at different fidelity levels (point-mass, 7DOF, MATLAB-parity with MF5.2 tires) for different jobs. Point-mass runs parameter sweeps in 50ms/lap. 7DOF does yaw dynamics. I also do distributed compute, automation, and data pipeline work."
-      },
-      {
-        "project": "OpenLAP Python",
-        "description": "Ported the OpenLAP MATLAB lap sim to Python as a clean rewrite (rejected automated transpilation so the code stays inspectable and extensible). Modular vehicle, track, solver, drag, and scoring pipeline, with all four FSAE dynamic events running end-to-end. Track-quality audits and aero/tire parameter calibration made the outputs trustworthy enough to use for design decisions, not just produce numbers."
+        "project": "FSAE Laptime Simulations",
+        "description": "Three lap sim tiers at different fidelity levels: point-mass for parameter sweeps (50ms/lap), 7DOF for yaw dynamics, and a MATLAB-parity OpenLAP Python rewrite with MF5.2 tires. For the OpenLAP port I rejected automated transpilation so the code stays inspectable and extensible — modular vehicle, track, solver, drag, and scoring pipeline runs all four FSAE dynamic events end-to-end. Track-quality audits and aero/tire parameter calibration made outputs trustworthy enough for design decisions, not just to produce numbers. Also distributed compute, automation, and data pipeline work on top of the sim stack."
       },
       {
         "project": "DAQ Telemetry Processor",
@@ -266,7 +262,7 @@ export const skills: Record<string, Skill> = {
         "description": "Arduino + sensors for data collection. Same approach I used in the battery cooling project: cheap hardware, real data."
       },
       {
-        "project": "VD Lead, Test Day Framework",
+        "project": "VD Lead",
         "description": "Built the team's first structured test day framework: 17 test objectives in three priority tiers so the day stops cleanly if time runs short, six supporting documents (pre-test GO/NO-GO checklist, run sheet, data collection forms, 48-hour post-test pipeline, 5-Whys problem log, master test matrix), seven go/no-go decision points with named authority. The IC test day will be the first full execution, a process dry-run on hardware that exists now so EV test time isn't wasted on logistics."
       }
     ]

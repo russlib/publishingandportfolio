@@ -1,7 +1,8 @@
 export type FeaturedProject = {
   slug: string;
   name: string;
-  thumbnail: string;
+  thumbnail?: string;
+  fallbackTex?: string;
   hook: string;
 };
 
@@ -23,6 +24,24 @@ export const featuredProjects: FeaturedProject[] = [
     name: "FSAE Gear Ratio Selection",
     thumbnail: "/projects/fsae-gear-ratio-selection/sensitivity_gear_ratio.png",
     hook: "Turned a design-review argument into a vehicle-level decision problem. ~50 points at stake.",
+  },
+  {
+    slug: "busbar-calculator",
+    name: "Busbar Calculator",
+    thumbnail: "/projects/busbar-calculator/busbar-analysis-plot.png",
+    hook: "Transient I²R + convection ODE for FSAE busbars. Analytical steady state, numerical transient, temperature-dependent resistivity.",
+  },
+  {
+    slug: "fsae-segment-structural-handcalcs",
+    name: "FSAE Segment Structural HandCalcs",
+    thumbnail: "/projects/fsae-segment-structural-handcalcs/segment-casing.png",
+    hook: "Lid bending, fastener tension / shear, Euler-Johnson buckling, and bond strength under SES 20g / 40g crash loads. All safety factors above 1.",
+  },
+  {
+    slug: "nusselt-correlation-derivation",
+    name: "Nusselt Correlation Derivation",
+    fallbackTex: "h = C \\cdot L^{m-1} \\cdot V^m \\cdot \\nu^{n-m} \\cdot \\rho^n \\cdot C_p^n \\cdot k^{1-n}",
+    hook: "Derivation showing h scaling with velocity. With m ≈ 0.7 and fan affinity laws, doubling cooling takes ~16× fan power.",
   },
   {
     slug: "fsae-battery-pack-mounts-jig",

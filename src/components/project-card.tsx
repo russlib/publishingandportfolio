@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { projects } from "@/data/projects";
+import { InlineEquation } from "@/components/article";
 import type { FeaturedProject } from "@/data/featured-projects";
 
 const statusDot = {
@@ -23,15 +24,30 @@ export function ProjectCard({ project }: { project: FeaturedProject }) {
         boxShadow: "0 1px 3px rgba(0,0,0,0.04), 0 4px 24px rgba(0,0,0,0.03)",
       }}
     >
-      <div className="relative aspect-[16/10] w-full overflow-hidden" style={{ background: "#f5f7fa" }}>
-        <Image
-          src={project.thumbnail}
-          alt={project.name}
-          fill
-          sizes="(max-width: 1280px) 100vw, 520px"
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-          unoptimized
-        />
+      <div
+        className="relative aspect-[16/10] w-full overflow-hidden"
+        style={{
+          background: project.thumbnail
+            ? "#f5f7fa"
+            : "linear-gradient(135deg, #e8edf5 0%, #d8e0ee 100%)",
+        }}
+      >
+        {project.thumbnail ? (
+          <Image
+            src={project.thumbnail}
+            alt={project.name}
+            fill
+            sizes="(max-width: 1280px) 100vw, 520px"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            unoptimized
+          />
+        ) : project.fallbackTex ? (
+          <div className="absolute inset-0 flex items-center justify-center px-[24px] text-center">
+            <div className="text-[14px]" style={{ color: "#3c4257" }}>
+              <InlineEquation tex={project.fallbackTex} />
+            </div>
+          </div>
+        ) : null}
       </div>
       <div className="px-[20px] py-[18px]">
         <h3 className="text-[17px] font-medium leading-[24px]" style={{ color: "#181818" }}>
