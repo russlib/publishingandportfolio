@@ -1,14 +1,31 @@
 import Link from "next/link";
-import { Figure, Callout, Collapsible, BlockEquation, InlineEquation } from "@/components/article";
+import {
+  Figure,
+  Callout,
+  Collapsible,
+  BlockEquation,
+  InlineEquation,
+  ProjectToc,
+} from "@/components/article";
 
 const img = (name: string) => `/projects/battery-cooling/${name}`;
+
+const toc = [
+  { id: "summary", title: "The Summary" },
+  { id: "understanding", title: "Understanding" },
+  { id: "designing", title: "Designing" },
+  { id: "testing", title: "Testing" },
+  { id: "takeaways", title: "Creating Takeaways" },
+];
 
 export function BatteryCoolingContent() {
   return (
     <article className="article-prose">
+      <ProjectToc entries={toc} />
+
       {/* ── Summary ─────────────────────────────────────── */}
       <section>
-        <h2>The Summary</h2>
+        <h2 id="summary">The Summary</h2>
 
         <p>
           <strong>Decision:</strong> 6 W server fan operating point. Delivers{" "}
@@ -98,7 +115,7 @@ export function BatteryCoolingContent() {
 
       {/* ── Understanding ───────────────────────────────── */}
       <section>
-        <h2>Understanding</h2>
+        <h2 id="understanding">Understanding</h2>
         <p>The fundamental energy balance for cell cooling:</p>
         <BlockEquation tex="\dot{Q}_{gen} = \dot{Q}_{conv} + \dot{Q}_{rad} + \dot{Q}_{cond} + \dot{Q}_{stored}" />
         <p>
@@ -212,7 +229,7 @@ export function BatteryCoolingContent() {
 
       {/* ── Designing ───────────────────────────────────── */}
       <section>
-        <h2>Designing</h2>
+        <h2 id="designing">Designing</h2>
         <p>
           The goal: create a mock Enepaq brick that could be heated and have air blown past it.
           Success criteria:
@@ -297,7 +314,7 @@ export function BatteryCoolingContent() {
 
       {/* ── Testing ─────────────────────────────────────── */}
       <section>
-        <h2>Testing</h2>
+        <h2 id="testing">Testing</h2>
         <p>The physical testing can be broken up into two categories:</p>
         <ul>
           <li>Aluminum mock Enepaq brick (heated externally by heat gun)</li>
@@ -458,7 +475,7 @@ export function BatteryCoolingContent() {
 
       {/* ── Takeaways ───────────────────────────────────── */}
       <section>
-        <h2>Creating Takeaways</h2>
+        <h2 id="takeaways">Creating Takeaways</h2>
 
         <Callout type="warning" title="Purposeful Pessimism">
           <p>
