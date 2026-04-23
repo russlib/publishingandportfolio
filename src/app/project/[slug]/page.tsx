@@ -11,29 +11,7 @@ import {
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
-
-const statusConfig = {
-  strong: {
-    label: "Strong",
-    dot: "bg-emerald-500",
-    badge: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
-  demonstrated: {
-    label: "Demonstrated",
-    dot: "bg-blue-500",
-    badge: "bg-blue-50 text-blue-700 border-blue-200",
-  },
-  "in-progress": {
-    label: "In Progress",
-    dot: "bg-amber-500",
-    badge: "bg-amber-50 text-amber-700 border-amber-200",
-  },
-  gap: {
-    label: "Gap",
-    dot: "bg-red-500",
-    badge: "bg-red-50 text-red-700 border-red-200",
-  },
-};
+import { ProjectStatusTags } from "@/components/project-status-tags";
 
 export function generateStaticParams() {
   return Object.keys(projects).map((slug) => ({ slug }));
@@ -60,78 +38,69 @@ export default async function ProjectPage({
       <main className="mx-auto max-w-[720px] px-[24px] pb-[128px]">
         {/* Header */}
         <div className="mt-[48px]">
-          <p className="text-[11px] font-medium tracking-[0.5px] uppercase mb-[16px]" style={{ color: "#687385" }}>
-            {isMini ? "Mini Project" : "Project"}
-          </p>
-          <div className="flex items-start gap-[12px] flex-wrap">
-            <h1 className="text-[40px] leading-[48px]">{project.name}</h1>
-            {isMini && (
-              <span
-                className="mt-[14px] shrink-0 rounded-full border px-[10px] py-[3px] text-[11px] font-medium uppercase tracking-[0.5px]"
-                style={{
-                  borderColor: "rgba(0,0,0,0.1)",
-                  color: "#687385",
-                  background: "rgba(0,0,0,0.02)",
-                }}
-              >
-                Mini
-              </span>
-            )}
+          <div className="flex flex-wrap items-center gap-[10px] mb-[16px]">
+            <span
+              className="rounded-full border px-[10px] py-[3px] text-[11px] font-medium uppercase tracking-[0.5px]"
+              style={{
+                borderColor: "rgba(71, 85, 105, 0.25)",
+                color: "#475569",
+                background: "rgba(71, 85, 105, 0.06)",
+              }}
+            >
+              {isMini ? "Mini Project" : "Project"}
+            </span>
+            <ProjectStatusTags slug={slug} size="md" />
           </div>
+          <h1 className="text-[40px] leading-[48px]">{project.name}</h1>
 
           {/* Skill badges */}
           <div className="mt-[20px] flex flex-wrap gap-[8px]">
-            {project.skills.map((entry) => {
-              const cfg = statusConfig[entry.skillStatus];
-              return (
-                <Link key={entry.skillId} href={`/skill/${entry.skillId}`}>
-                  <Badge variant="outline" className={`${cfg.badge} text-[12px] font-medium cursor-pointer`}>
-                    <span className={`size-[6px] rounded-full ${cfg.dot} mr-[6px]`} />
-                    {entry.skillName}
-                  </Badge>
-                </Link>
-              );
-            })}
+            {project.skills.map((entry) => (
+              <Link key={entry.skillId} href={`/skill/${entry.skillId}`}>
+                <Badge variant="outline" className="text-[12px] font-medium cursor-pointer">
+                  {entry.skillName}
+                </Badge>
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* Skill-specific descriptions */}
         <div className="mt-[48px] flex flex-col gap-[20px]">
+          {/* BORDERLINE: section heading "How this project demonstrates each skill" — mild "What I Bring" energy. See BORDERLINE.md */}
           <h3 className="text-[13px] font-medium tracking-[0.5px] uppercase" style={{ color: "#687385" }}>
             How this project demonstrates each skill
           </h3>
 
-          {project.skills.map((entry) => {
-            const cfg = statusConfig[entry.skillStatus];
-            return (
-              <Card key={entry.skillId} className="glass-card border-none ring-0">
-                <CardHeader>
+          {project.skills.map((entry) => (
+            <Card key={entry.skillId} className="glass-card border-none ring-0">
+              <CardHeader>
+                <div className="flex items-start justify-between gap-[12px]">
                   <CardTitle className="text-[18px]">
                     <Link href={`/skill/${entry.skillId}`} className="hover:underline underline-offset-[3px]">
-                      <span className="flex items-center gap-[8px]">
-                        <span className={`size-[7px] rounded-full ${cfg.dot}`} />
-                        {entry.skillName}
-                      </span>
+                      {entry.skillName}
                     </Link>
                   </CardTitle>
-                  {entry.metric && (
-                    <div className="flex flex-wrap gap-[6px] mt-[4px]">
-                      {entry.metric.split(" · ").map((m) => (
-                        <Badge key={m} variant="outline" className="font-mono text-[11px] font-normal">
-                          {m}
-                        </Badge>
-                      ))}
-                    </div>
-                  )}
-                </CardHeader>
-                <CardContent>
-                  <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
-                    {entry.description}
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
+                  <span
+                    className="shrink-0 rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                    style={{
+                      borderColor: "rgba(79, 70, 229, 0.25)",
+                      color: "#4338ca",
+                      background: "rgba(79, 70, 229, 0.06)",
+                    }}
+                  >
+                    Skill
+                  </span>
+                </div>
+                {/* Metric pill rendering intentionally hidden for v1 launch. Source preserved in skill markdown as internal callouts. See tracking issue. */}
+              </CardHeader>
+              <CardContent>
+                <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
+                  {entry.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         {/* Full project content (if available) */}

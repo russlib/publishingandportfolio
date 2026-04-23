@@ -1,41 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Lock } from "lucide-react";
 import { skills } from "@/data/portfolio";
 import { getProjectSlug } from "@/data/projects";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { featuredProjects } from "@/data/featured-projects";
 import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import { SiteNav } from "@/components/site-nav";
-
-const statusConfig = {
-  strong: {
-    label: "Strong",
-    dot: "bg-emerald-500",
-    badge: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  },
-  demonstrated: {
-    label: "Demonstrated",
-    dot: "bg-blue-500",
-    badge: "bg-blue-50 text-blue-700 border-blue-200",
-  },
-  "in-progress": {
-    label: "In Progress",
-    dot: "bg-amber-500",
-    badge: "bg-amber-50 text-amber-700 border-amber-200",
-  },
-  gap: {
-    label: "Gap",
-    dot: "bg-red-500",
-    badge: "bg-red-50 text-red-700 border-red-200",
-  },
-};
+import { ProjectStatusTags } from "@/components/project-status-tags";
 
 export function generateStaticParams() {
   return Object.keys(skills).map((id) => ({ id }));
@@ -50,8 +26,6 @@ export default async function SkillPage({
   const skill = skills[id];
   if (!skill) notFound();
 
-  const cfg = statusConfig[skill.status];
-
   return (
     <>
       <SiteNav />
@@ -60,15 +34,23 @@ export default async function SkillPage({
         {/* Header */}
         <div className="mt-[48px]">
           <div className="flex items-center gap-[10px] mb-[16px]">
-            <span className={`size-[9px] rounded-full ${cfg.dot}`} />
-            <Badge variant="outline" className={`${cfg.badge} text-[12px] font-medium`}>
-              {cfg.label}
-            </Badge>
+            <span
+              className="rounded-full border px-[10px] py-[3px] text-[11px] font-medium uppercase tracking-[0.5px]"
+              style={{
+                borderColor: "rgba(79, 70, 229, 0.25)",
+                color: "#4338ca",
+                background: "rgba(79, 70, 229, 0.06)",
+              }}
+            >
+              Skill
+            </span>
           </div>
           <h1 className="text-[40px] leading-[48px]">{skill.name}</h1>
-          <p className="mt-[16px] text-[16px] leading-[26px]" style={{ color: "#687385" }}>
-            {skill.preview}
-          </p>
+          {skill.preview && (
+            <p className="mt-[16px] text-[16px] leading-[26px]" style={{ color: "#687385" }}>
+              {skill.preview}
+            </p>
+          )}
         </div>
 
         {/* Evidence cards */}
@@ -77,49 +59,81 @@ export default async function SkillPage({
             Evidence &middot; {skill.evidence.length} project{skill.evidence.length !== 1 ? "s" : ""}
           </h3>
 
-          {skill.evidence.map((ev) => (
+          {skill.evidence.map((ev) => {
+            const slug = getProjectSlug(ev.project);
+            const featured = featuredProjects.find((f) => f.slug === slug);
+            const isMini = featured?.tier === "mini";
+            return (
             <Card key={ev.project} className="glass-card border-none ring-0">
               <CardHeader>
-                <CardTitle className="text-[18px]">
-                  <Link href={`/project/${getProjectSlug(ev.project)}`} className="hover:underline underline-offset-[3px]">
-                    {ev.project}
-                  </Link>
-                </CardTitle>
-                {ev.metric && (
-                  <CardDescription>
-                    <div className="flex flex-wrap gap-[6px] mt-[4px]">
-                      {ev.metric.split(" · ").map((m) => (
-                        <Badge key={m} variant="outline" className="font-mono text-[11px] font-normal">
-                          {m}
-                        </Badge>
-                      ))}
+                <div className="flex items-start justify-between gap-[12px]">
+                  <CardTitle className="text-[18px]">
+                    {ev.nda ? (
+                      <span>{ev.project}</span>
+                    ) : (
+                      <Link href={`/project/${slug}`} className="hover:underline underline-offset-[3px]">
+                        {ev.project}
+                      </Link>
+                    )}
+                  </CardTitle>
+                  {ev.nda ? (
+                    <div className="flex flex-wrap items-center justify-end gap-[6px]">
+                      <span
+                        className="rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                        style={{
+                          borderColor: "rgba(0,0,0,0.1)",
+                          color: "#3c4257",
+                          background: "rgba(0,0,0,0.03)",
+                        }}
+                      >
+                        Professional
+                      </span>
+                      <span
+                        className="inline-flex items-center gap-[4px] rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                        style={{
+                          borderColor: "rgba(180,130,40,0.25)",
+                          color: "#9a7b31",
+                          background: "rgba(180,130,40,0.06)",
+                        }}
+                      >
+                        <Lock className="size-[10px]" />
+                        NDA
+                      </span>
                     </div>
-                  </CardDescription>
-                )}
+                  ) : (
+                    <div className="flex flex-wrap items-center justify-end gap-[6px]">
+                      <span
+                        className="rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                        style={{
+                          borderColor: "rgba(71, 85, 105, 0.25)",
+                          color: "#475569",
+                          background: "rgba(71, 85, 105, 0.06)",
+                        }}
+                      >
+                        {isMini ? "Mini Project" : "Project"}
+                      </span>
+                      <ProjectStatusTags slug={slug} />
+                    </div>
+                  )}
+                </div>
+                {/* Metric pill rendering intentionally hidden for v1 launch. Source preserved in skill markdown as internal callouts. See tracking issue. */}
               </CardHeader>
               <CardContent>
                 <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
                   {ev.description}
                 </p>
+                {ev.nda && (
+                  <p className="mt-[12px] text-[12px] leading-[18px] italic" style={{ color: "#9a7b31" }}>
+                    {/* BORDERLINE: NDA disclaimer wording — slightly formal/lawyer-ish. See BORDERLINE.md */}
+                    Covered under NDA. Scope and skills listed reflect what I've been cleared to share.
+                  </p>
+                )}
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
 
-          {/* Gap note */}
-          {skill.gap_note && (
-            <Card className="glass-card border-none ring-0 border-l-[3px] border-l-amber-300">
-              <CardHeader>
-                <CardTitle className="text-[13px] font-medium tracking-[0.5px] uppercase" style={{ color: "#9a7b31" }}>
-                  Next Steps
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
-                  {skill.gap_note}
-                </p>
-              </CardContent>
-            </Card>
-          )}
+          {/* Next Steps / gap_note card intentionally hidden for v1 launch. Source preserved in skill markdown frontmatter. See tracking issue for re-enable criteria. */}
         </div>
       </main>
 

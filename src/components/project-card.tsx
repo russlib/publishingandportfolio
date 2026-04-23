@@ -3,13 +3,7 @@ import Image from "next/image";
 import { projects } from "@/data/projects";
 import { InlineEquation } from "@/components/article";
 import type { FeaturedProject } from "@/data/featured-projects";
-
-const statusDot = {
-  strong: "bg-emerald-500",
-  demonstrated: "bg-blue-500",
-  "in-progress": "bg-amber-500",
-  gap: "bg-red-500",
-};
+import { ProjectStatusTags } from "@/components/project-status-tags";
 
 export function ProjectCard({ project }: { project: FeaturedProject }) {
   const meta = projects[project.slug];
@@ -57,18 +51,21 @@ export function ProjectCard({ project }: { project: FeaturedProject }) {
           <h3 className="text-[17px] font-medium leading-[24px]" style={{ color: "#181818" }}>
             {project.name}
           </h3>
-          {isMini && (
-            <span
-              className="mt-[2px] shrink-0 rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
-              style={{
-                borderColor: "rgba(0,0,0,0.1)",
-                color: "#687385",
-                background: "rgba(0,0,0,0.02)",
-              }}
-            >
-              Mini
-            </span>
-          )}
+          <div className="flex shrink-0 flex-wrap items-center gap-[6px] mt-[2px]">
+            {isMini && (
+              <span
+                className="rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                style={{
+                  borderColor: "rgba(0,0,0,0.1)",
+                  color: "#687385",
+                  background: "rgba(0,0,0,0.02)",
+                }}
+              >
+                Mini
+              </span>
+            )}
+            <ProjectStatusTags slug={project.slug} />
+          </div>
         </div>
         <p className="mt-[8px] text-[13px] leading-[20px]" style={{ color: "#687385" }}>
           {project.hook}
@@ -84,7 +81,6 @@ export function ProjectCard({ project }: { project: FeaturedProject }) {
                   color: "#687385",
                 }}
               >
-                <span className={`size-[5px] rounded-full ${statusDot[entry.skillStatus]}`} />
                 {entry.skillName}
               </span>
             ))}

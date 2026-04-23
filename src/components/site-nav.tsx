@@ -17,7 +17,10 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
             Home
           </Button>
         ) : (
-          <span className="text-[16px] font-medium" style={{ letterSpacing: "-0.3px" }}>
+          <span
+            className="whitespace-nowrap text-[16px] font-medium"
+            style={{ letterSpacing: "-0.3px" }}
+          >
             Russell Bilinski
           </span>
         )}
@@ -55,10 +58,13 @@ export function SiteNav({ showBack = true }: { showBack?: boolean }) {
 
           <Link
             href="/"
-            className="group flex items-center gap-[8px] rounded-[10px] px-[10px] py-[6px] transition-colors hover:bg-black/[0.04]"
+            className="group hidden items-center gap-[8px] rounded-[10px] px-[10px] py-[6px] transition-colors hover:bg-black/[0.04] sm:flex"
             aria-label="Home"
           >
-            <span className="text-[13px] font-medium" style={navLinkColor}>
+            <span
+              className="hidden whitespace-nowrap text-[13px] font-medium sm:inline"
+              style={navLinkColor}
+            >
               {showBack ? "Russell Bilinski" : "Portfolio"}
             </span>
             <Home className="size-[14px]" style={navLinkColor} />

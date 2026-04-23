@@ -7,11 +7,21 @@ export function HvJunctionBoxContent() {
     <article className="article-prose">
       <section>
         <p className="text-[13px] italic" style={{ color: "#687385" }}>
-          Spring 2024. Archived project. Designed, reviewed, and drawn for fabrication, but never built.
-          An accumulator failure that year cancelled the team&apos;s competition trip, so the box did not go on a car.
-          Parts of the design were reused by the team in later years. Co-authored the 90% design review with Taz Oldaker,
+          Spring 2024. Archived project. Designed, reviewed, and drawn for fabrication; machining delayed. An
+          accumulator failure that year cancelled the team&apos;s competition trip, so the box never went on a car.
+          Parts of the design were reused in later years. Co-authored the 90% design review with Taz Oldaker,
           under Byron Oser&apos;s technical direction. Byron owned the busbar, heat gen, and fastener hand calcs.
         </p>
+
+        <h2>Summary</h2>
+        <ul>
+          <li>Housed energy monitoring devices, safety circuits, and various resistors and connectors.</li>
+          <li>Handles 300&ndash;500 V in up to 80 kW bursts.</li>
+          <li>Guidance from electrical members and sub-leads for electrical layout and rule compliance.</li>
+          <li>Created mounts and machining drawings for component mounting and vibration mitigation.</li>
+          <li>Tight space constraints inside the sidepod packaging volume.</li>
+          <li>First major project, done under tight time constraints. Many vectors for improvement (called out further down the page).</li>
+        </ul>
 
         <h2>What the deck covered</h2>
 
@@ -76,6 +86,27 @@ export function HvJunctionBoxContent() {
           src={img("future-integration.png")}
           alt="Future recommendation CAD showing junction box integrated into the accumulator"
           caption="Future recommendation: junction box integrated into the accumulator, eliminating the tack-on box entirely."
+        />
+
+        <h2>From the design review deck</h2>
+        <p className="text-[13px] italic" style={{ color: "#687385" }}>
+          A few slides from the 90% design review. Full deck lives in the vault; these three give a sense of the internals thinking that went in.
+        </p>
+
+        <Figure
+          src={img("deck-design-1.png")}
+          alt="Slide from the HV junction box design review deck"
+          caption="Design review slide 08."
+        />
+        <Figure
+          src={img("deck-design-2.png")}
+          alt="Slide from the HV junction box design review deck"
+          caption="Design review slide 11."
+        />
+        <Figure
+          src={img("deck-design-3.png")}
+          alt="Slide from the HV junction box design review deck"
+          caption="Design review slide 15."
         />
 
         <h2>What I could revisit</h2>

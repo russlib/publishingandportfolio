@@ -17,6 +17,14 @@ const registry: Record<string, () => Promise<{ default: ComponentType }>> = {
     import("./nusselt-correlation-derivation").then((m) => ({ default: m.NusseltCorrelationDerivationContent })),
   "hv-junction-box": () =>
     import("./hv-junction-box").then((m) => ({ default: m.HvJunctionBoxContent })),
+  "fsae-vehicle-dynamics-lead": () =>
+    import("./fsae-vehicle-dynamics-lead").then((m) => ({ default: m.FsaeVehicleDynamicsLeadContent })),
+  "fsae-laptime-simulations": () =>
+    import("./fsae-laptime-simulations").then((m) => ({ default: m.FsaeLaptimeSimulationsContent })),
+  "off-grid-e-bike-charging-station": () =>
+    import("./off-grid-e-bike-charging-station").then((m) => ({ default: m.OffGridEBikeChargingStationContent })),
+  "competitive-high-school-robotics": () =>
+    import("./competitive-high-school-robotics").then((m) => ({ default: m.CompetitiveHighSchoolRoboticsContent })),
 };
 
 export function hasProjectContent(slug: string): boolean {

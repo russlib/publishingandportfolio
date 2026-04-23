@@ -17,7 +17,7 @@ export function FsaeBatteryPackMountsJigContent() {
         <Figure
           src={img("baseplate-with-inserts.png")}
           alt="Baseplate with interchangeable inserts visible under the enclosure"
-          caption="Single baseplate with swappable inserts — same fixture handles aluminum TIG and steel welds"
+          caption="Single baseplate with swappable inserts. Same fixture handles aluminum TIG and steel welds."
         />
 
         <Figure

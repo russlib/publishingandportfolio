@@ -29,6 +29,7 @@ function buildProjects(): Record<string, Project> {
 
   for (const skill of Object.values(skills)) {
     for (const ev of skill.evidence) {
+      if (ev.nda) continue;
       const slug = slugify(ev.project);
       if (!map[slug]) {
         map[slug] = { slug, name: ev.project, skills: [] };

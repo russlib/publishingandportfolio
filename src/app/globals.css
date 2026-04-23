@@ -96,6 +96,14 @@
     font-size: 16px;
     line-height: 1.5;
   }
+  /* `mx-auto` on a flex-column item disables align-items: stretch, so main sizes
+     to max-content and wide descendants (tables, KaTeX) push it past the viewport.
+     Pin main/nav to 100% of their parent so overflow-x-auto wrappers actually scroll. */
+  body > main,
+  body > nav {
+    width: 100%;
+    min-width: 0;
+  }
   html {
     @apply font-sans;
     scroll-behavior: smooth;
@@ -332,10 +340,20 @@ body::before {
   color: #3c4257;
   margin-bottom: 6px;
 }
+.article-prose {
+  min-width: 0;
+  max-width: 100%;
+}
 .article-prose table {
-  width: 100%;
+  width: max-content;
+  min-width: 100%;
   border-collapse: collapse;
   font-size: 14px;
+}
+/* Keep block equations from blowing out the page width on mobile */
+.article-prose .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
 }
 .article-prose th {
   text-align: left;

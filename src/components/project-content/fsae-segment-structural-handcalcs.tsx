@@ -63,6 +63,10 @@ export function FsaeSegmentStructuralHandcalcsContent() {
   return (
     <article className="article-prose">
       <section>
+        <p className="text-[13px] italic" style={{ color: "#687385" }}>
+          Original work: early 2024 (MATLAB, pre-design of the UV26 accumulator segment). Ported to Python and re-run against SES 2026 load cases. I&apos;ve been grounding segment design decisions in this calculation set for two years.
+        </p>
+
         <h2>Battery Module Structural Analysis</h2>
         <Figure
           src={img("segment-casing.png")}
@@ -71,9 +75,9 @@ export function FsaeSegmentStructuralHandcalcsContent() {
         />
         <p>
           These hand calcs, translated into a Python script, let me iterate quickly on the
-          structural design of the UV26 accumulator segment. The initial version was MATLAB back
-          in early 2024, pre-design of the segment. This page covers the current SES calculations,
-          calculations expected for 2026, and sanity checks I wanted for solid mechanical design.
+          structural design of the UV26 accumulator segment. This page covers the current SES
+          calculations, calculations expected for 2026, and sanity checks I wanted for solid
+          mechanical design.
         </p>
 
         <p>

@@ -46,16 +46,31 @@ function parseFrontmatter(raw) {
 
 function parseEvidence(body) {
   const evidence = [];
-  const sections = body.split(/^## /m).filter(Boolean);
+  // Drop anything before the first `## ` heading. This lets skill files include
+  // internal Obsidian callouts (e.g. `> [!internal] ...`) at the top of the body
+  // for Russell's eyes only, without leaking into the rendered site.
+  const parts = body.split(/^## /m);
+  const sections = parts.slice(1);
 
   for (const section of sections) {
     const lines = section.trim().split("\n");
     const project = lines[0].trim();
     let description = "";
     let metric = null;
+    let nda = false;
 
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i];
+      // Skip Obsidian callout lines (blockquote syntax). Any `> ...` block inside
+      // a skill section is treated as internal notes and never rendered.
+      if (line.trimStart().startsWith(">")) continue;
+      // Detect NDA marker: a line that is exactly `**NDA**` flags the whole
+      // evidence entry as covered under NDA. Rendered with Professional + NDA
+      // badges and a disclaimer on the skill page.
+      if (line.trim() === "**NDA**") {
+        nda = true;
+        continue;
+      }
       if (line.startsWith("**Metric:**")) {
         metric = line.replace("**Metric:**", "").trim();
       } else if (line.trim()) {
@@ -64,7 +79,12 @@ function parseEvidence(body) {
       }
     }
 
-    evidence.push({ project, description, ...(metric ? { metric } : {}) });
+    evidence.push({
+      project,
+      description,
+      ...(metric ? { metric } : {}),
+      ...(nda ? { nda: true } : {}),
+    });
   }
 
   return evidence;
@@ -83,7 +103,7 @@ function buildSkills() {
       id: frontmatter.id,
       name: frontmatter.name,
       status: frontmatter.status,
-      preview: frontmatter.preview,
+      ...(frontmatter.preview ? { preview: frontmatter.preview } : {}),
       evidence,
       ...(frontmatter.gap_note ? { gap_note: frontmatter.gap_note } : {}),
     };
@@ -97,13 +117,14 @@ export type Evidence = {
   project: string;
   description: string;
   metric?: string;
+  nda?: boolean;
 };
 
 export type Skill = {
   id: string;
   name: string;
   status: "strong" | "demonstrated" | "in-progress" | "gap";
-  preview: string;
+  preview?: string;
   evidence: Evidence[];
   gap_note?: string;
 };

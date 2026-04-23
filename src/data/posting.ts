@@ -116,7 +116,8 @@ export const posting: Posting = {
             "text": "Experience with "
           },
           {
-            "text": "FEA based part design and optimization"
+            "text": "FEA based part design and optimization",
+            "skillId": "fea"
           }
         ],
         [

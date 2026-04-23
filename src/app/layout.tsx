@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Russell Bilinski | Mechanical Engineering Portfolio",
   description:
-    "Actuator design, SolidWorks, Python, and physical testing — targeting robotics internships.",
+    "Mechanical engineering student at the University of Victoria. FSAE Vehicle Dynamics Lead on UVic's first EV build. Prior Tesla Battery Pack Mechanical Engineering internship. Work spans mechanical design, CAD automation, controls, first-principles analysis, and physical testing.",
 };
 
 export default function RootLayout({

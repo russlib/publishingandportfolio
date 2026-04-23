@@ -39,9 +39,15 @@ export const featuredProjects: FeaturedProject[] = [
     hook: "Lid bending, fastener tension / shear, Euler-Johnson buckling, and bond strength under SES 20g / 40g crash loads. All safety factors above 1.",
   },
   {
-    slug: "high-school-robotics-growth-arc",
-    name: "High School Robotics — Growth Arc",
-    hook: "Dead last in 9th grade. Regional champions and worlds qualifiers by 11th. Lead programmer in 12th, responsible for ~80-90% of programming run points.",
+    slug: "competitive-high-school-robotics",
+    name: "Competitive High School Robotics",
+    thumbnail: "/projects/competitive-high-school-robotics/robot-awards.jpg",
+    hook: "Four years of VEX competition. 2x Worlds qualifier, Vancouver Island Regional Championship, lead programmer responsible for ~80-90% of programming run points.",
+  },
+  {
+    slug: "pygeartrain-gear-profile-generation",
+    name: "pygeartrain — Gear Profile Generation",
+    hook: "Forked open-source gear library; added CAD export so helical and herringbone planetary profiles drop directly into SolidWorks. Used on the QDD actuator with Aaron.",
     tier: "mini",
   },
   {
