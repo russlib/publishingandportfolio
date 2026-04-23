@@ -61,19 +61,31 @@ export function BatteryCoolingContent() {
         </p>
 
         <h3>Why Physical Testing?</h3>
-        <div className="flex flex-col sm:flex-row gap-[16px] my-[24px]">
-          <Figure
-            src={img("enepaq-module-cad.png")}
-            alt="CAD view of Enepaq module showing irregular airflow path"
-            caption="Front view of our module design (23 Enepaq bricks in a module)"
-            width={400}
-          />
-          <Figure
-            src={img("enepaq-brick-render.png")}
-            alt="Single Enepaq brick structure"
-            caption="Single Enepaq brick structure"
-            width={300}
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[24px] my-[24px] items-end justify-items-center">
+          <figure className="flex w-full flex-col items-center">
+            <div className="flex h-[320px] w-full items-center justify-center">
+              <img
+                src={img("enepaq-module-cad.png")}
+                alt="CAD view of Enepaq module showing irregular airflow path"
+                className="max-h-full max-w-full rounded-[8px] object-contain"
+              />
+            </div>
+            <figcaption className="mt-[8px] text-center text-[13px] italic" style={{ color: "#687385" }}>
+              Front view of our module design (23 Enepaq bricks in a module)
+            </figcaption>
+          </figure>
+          <figure className="flex w-full flex-col items-center">
+            <div className="flex h-[320px] w-full items-center justify-center">
+              <img
+                src={img("enepaq-brick-render.png")}
+                alt="Single Enepaq brick structure"
+                className="max-h-full max-w-full rounded-[8px] object-contain"
+              />
+            </div>
+            <figcaption className="mt-[8px] text-center text-[13px] italic" style={{ color: "#687385" }}>
+              Single Enepaq brick structure
+            </figcaption>
+          </figure>
         </div>
         <p>
           The irregular geometry of Enepaq modules makes analytical heat transfer calculations (from

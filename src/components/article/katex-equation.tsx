@@ -10,7 +10,7 @@ export function BlockEquation({ tex }: { tex: string }) {
       katex.render(tex, ref.current, { displayMode: true, throwOnError: false });
     }
   }, [tex]);
-  return <div ref={ref} className="my-[24px] overflow-x-auto text-center" />;
+  return <div ref={ref} className="my-[24px] overflow-x-auto overflow-y-hidden text-center" />;
 }
 
 export function InlineEquation({ tex }: { tex: string }) {

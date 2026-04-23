@@ -73,33 +73,33 @@ export default async function ProjectPage({
           </h3>
 
           {project.skills.map((entry) => (
-            <Card key={entry.skillId} className="glass-card border-none ring-0">
-              <CardHeader>
-                <div className="flex items-start justify-between gap-[12px]">
-                  <CardTitle className="text-[18px]">
-                    <Link href={`/skill/${entry.skillId}`} className="hover:underline underline-offset-[3px]">
-                      {entry.skillName}
-                    </Link>
-                  </CardTitle>
-                  <span
-                    className="shrink-0 rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
-                    style={{
-                      borderColor: "rgba(79, 70, 229, 0.25)",
-                      color: "#4338ca",
-                      background: "rgba(79, 70, 229, 0.06)",
-                    }}
-                  >
-                    Skill
-                  </span>
-                </div>
-                {/* Metric pill rendering intentionally hidden for v1 launch. Source preserved in skill markdown as internal callouts. See tracking issue. */}
-              </CardHeader>
-              <CardContent>
-                <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
-                  {entry.description}
-                </p>
-              </CardContent>
-            </Card>
+            <Link key={entry.skillId} href={`/skill/${entry.skillId}`} className="group block">
+              <Card className="glass-card border-none ring-0 transition-all group-hover:-translate-y-[2px]">
+                <CardHeader>
+                  <div className="flex items-start justify-between gap-[12px]">
+                    <CardTitle className="text-[18px] group-hover:underline underline-offset-[3px]">
+                      <span>{entry.skillName}</span>
+                    </CardTitle>
+                    <span
+                      className="shrink-0 rounded-full border px-[8px] py-[2px] text-[10px] font-medium uppercase tracking-[0.5px]"
+                      style={{
+                        borderColor: "rgba(79, 70, 229, 0.25)",
+                        color: "#4338ca",
+                        background: "rgba(79, 70, 229, 0.06)",
+                      }}
+                    >
+                      Skill
+                    </span>
+                  </div>
+                  {/* Metric pill rendering intentionally hidden for v1 launch. Source preserved in skill markdown as internal callouts. See tracking issue. */}
+                </CardHeader>
+                <CardContent>
+                  <p className="text-[14px] leading-[22px]" style={{ color: "#687385" }}>
+                    {entry.description}
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 

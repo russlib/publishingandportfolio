@@ -350,10 +350,14 @@ body::before {
   border-collapse: collapse;
   font-size: 14px;
 }
-/* Keep block equations from blowing out the page width on mobile */
+/* Keep block equations from blowing out the page width on mobile.
+   overflow-y: hidden is required — setting overflow-x: auto alone promotes
+   overflow-y from visible to auto (CSS spec), which gives KaTeX displays a
+   spurious vertical scrollbar due to sub-pixel strut overflow. */
 .article-prose .katex-display {
   max-width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .article-prose th {
   text-align: left;
@@ -372,6 +376,22 @@ body::before {
 }
 .article-prose tbody tr:hover {
   background: oklch(0.97 0.005 250 / 50%);
+}
+/* Cross-project / external prose links — make them obviously clickable.
+   Matches the AnnotatedLink treatment used on the posting page so navigation
+   to another project/skill page reads as an actual link, not muted prose. */
+.article-prose a {
+  color: #1d4ed8;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(59, 130, 246, 0.7);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s ease, text-underline-offset 0.2s ease;
+}
+.article-prose a:hover {
+  text-decoration-color: rgb(37, 99, 235);
+  text-underline-offset: 5px;
 }
 
 /* Tag badges — override shadcn defaults for softer look */

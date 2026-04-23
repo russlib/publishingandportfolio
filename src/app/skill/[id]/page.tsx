@@ -63,18 +63,12 @@ export default async function SkillPage({
             const slug = getProjectSlug(ev.project);
             const featured = featuredProjects.find((f) => f.slug === slug);
             const isMini = featured?.tier === "mini";
-            return (
-            <Card key={ev.project} className="glass-card border-none ring-0">
+            const cardInner = (
+            <Card className="glass-card border-none ring-0 transition-all group-hover:-translate-y-[2px]">
               <CardHeader>
                 <div className="flex items-start justify-between gap-[12px]">
-                  <CardTitle className="text-[18px]">
-                    {ev.nda ? (
-                      <span>{ev.project}</span>
-                    ) : (
-                      <Link href={`/project/${slug}`} className="hover:underline underline-offset-[3px]">
-                        {ev.project}
-                      </Link>
-                    )}
+                  <CardTitle className="text-[18px] group-hover:underline underline-offset-[3px]">
+                    <span>{ev.project}</span>
                   </CardTitle>
                   {ev.nda ? (
                     <div className="flex flex-wrap items-center justify-end gap-[6px]">
@@ -130,6 +124,13 @@ export default async function SkillPage({
                 )}
               </CardContent>
             </Card>
+            );
+            return ev.nda ? (
+              <div key={ev.project} className="group">{cardInner}</div>
+            ) : (
+              <Link key={ev.project} href={`/project/${slug}`} className="group block">
+                {cardInner}
+              </Link>
             );
           })}
 
