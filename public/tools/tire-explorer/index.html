@@ -72,8 +72,8 @@ td{padding:8px 0;border-top:1px solid var(--line);text-align:right;font-family:v
  <aside class="glass pad fade" style="animation-delay:.06s">
   <p class="sectlab">Tyre</p>
   <label class="fld"><span>Select tyre</span><select id="tsel"></select><div class="spec" id="specnote"></div></label>
-  <label class="fld"><span>Camber / inclination (°)</span><div class="seg" id="iaseg"></div></label>
-  <label class="fld"><span>Pressure (kPa)</span><div class="seg" id="pseg"></div></label>
+  <label class="fld"><span>Camber / inclination (°)</span><select id="iasel"></select></label>
+  <label class="fld"><span>Pressure (kPa)</span><select id="psel"></select></label>
   <label class="fld"><span>Grip basis</span><div class="seg" id="rseg">
     <button data-r="road" class="on">road ×0.60</button><button data-r="belt">belt</button></div></label>
   <div class="foot" id="foot"></div>
@@ -216,19 +216,14 @@ function refresh(){
     '<tr><td>'+l.fz+'</td><td>'+(l.peak!=null?Math.round(sc(l.peak)):'–')+'</td><td>'+(l.mur!=null?(st.road?l.mur:l.mub).toFixed(2):'–')
     +'</td><td>'+(l.opt!=null?l.opt.toFixed(2):'–')+'</td><td>'+(l.cs!=null?Math.round(sc(l.cs)):'–')+'</td></tr>').join('');
  }
- // camber + pressure seg controls — stable union sets; combos with no data render
- // lighter/dashed, and clicking one auto-resolves the other axis so it never dead-ends.
+ // camber + pressure native <select>s — robust (same mechanism as the tyre selector).
+ // combos with no data show as disabled "(no data)" options.
  const allP=[...new Set(ias.flatMap(ia=>Object.keys(t.data[ia])))].sort((a,b)=>a-b);
- const firstP=ia=>{const k=Object.keys(t.data[ia]).sort((a,b)=>a-b);return k.includes('69')?'69':k[0];};
- const iaseg=document.getElementById('iaseg');
- iaseg.innerHTML=ias.map(ia=>{const cls=ia===st.ia?'on':(t.data[ia][st.p]?'':'off');
-   return '<button data-ia="'+ia+'" class="'+cls+'"'+(cls==='off'?' title="no data at '+st.p+' kPa — picks an available pressure"':'')+'>'+ia+'°</button>';}).join('');
- const pseg=document.getElementById('pseg');
- pseg.innerHTML=allP.map(p=>{const cls=p===st.p?'on':(t.data[st.ia][p]?'':'off');
-   return '<button data-p="'+p+'" class="'+cls+'"'+(cls==='off'?' title="no data at '+st.ia+'° camber — picks an available camber"':'')+'>'+p+'</button>';}).join('');
+ document.getElementById('iasel').innerHTML=ias.map(ia=>'<option value="'+ia+'"'+(ia===st.ia?' selected':'')+(t.data[ia][st.p]?'':' disabled')+'>'+ia+'°'+(t.data[ia][st.p]?'':' (no data)')+'</option>').join('');
+ document.getElementById('psel').innerHTML=allP.map(p=>'<option value="'+p+'"'+(p===st.p?' selected':'')+(t.data[st.ia][p]?'':' disabled')+'>'+p+' kPa'+(t.data[st.ia][p]?'':' (no data)')+'</option>').join('');
  document.getElementById('specnote').textContent=(t.id===DB.spec)?'★ spec-sheet tyre (what we run)':'';
  document.getElementById('foot').innerHTML='Tyre: '+t.label+'<br>belt→road '+BELT
-   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev3 (delegated buttons)';
+   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev4 (native dropdowns)';
 }
 const sel=document.getElementById('tsel');
 sel.innerHTML=DB.tires.map(t=>'<option value="'+t.id+'"'+(t.id===DB.spec?' selected':'')+'>'
@@ -237,12 +232,10 @@ sel.onchange=()=>{st.id=sel.value;st.ia=null;st.p=null;refresh();};
 document.getElementById('rseg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
  st.road=b.dataset.r==='road';
  document.querySelectorAll('#rseg button').forEach(x=>x.classList.toggle('on',x===b));refresh();});
-// delegated clicks on the STATIC seg containers — survives the innerHTML rebuilds of their buttons
-document.getElementById('iaseg').onclick=e=>{const b=e.target.closest('button[data-ia]');if(!b)return;
- const tt=tyre(),ia=b.dataset.ia;st.ia=ia;
+// native <select> change handlers (same proven mechanism as the working tyre selector)
+document.getElementById('iasel').onchange=e=>{const tt=tyre(),ia=e.target.value;st.ia=ia;
  if(!tt.data[ia][st.p]){const k=Object.keys(tt.data[ia]).sort((a,b)=>a-b);st.p=k.includes('69')?'69':k[0];}refresh();};
-document.getElementById('pseg').onclick=e=>{const b=e.target.closest('button[data-p]');if(!b)return;
- const tt=tyre(),p=b.dataset.p;
+document.getElementById('psel').onchange=e=>{const tt=tyre(),p=e.target.value;
  if(!tt.data[st.ia][p]){const a=Object.keys(tt.data).find(ia=>tt.data[ia][p]);if(a)st.ia=a;}st.p=p;refresh();};
 refresh();
 </script></body></html>
