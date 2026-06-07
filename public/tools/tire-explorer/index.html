@@ -223,16 +223,12 @@ function refresh(){
  const iaseg=document.getElementById('iaseg');
  iaseg.innerHTML=ias.map(ia=>{const cls=ia===st.ia?'on':(t.data[ia][st.p]?'':'off');
    return '<button data-ia="'+ia+'" class="'+cls+'"'+(cls==='off'?' title="no data at '+st.p+' kPa — picks an available pressure"':'')+'>'+ia+'°</button>';}).join('');
- iaseg.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ia=b.dataset.ia;st.ia=ia;
-   if(!t.data[ia][st.p])st.p=firstP(ia);refresh();});
  const pseg=document.getElementById('pseg');
  pseg.innerHTML=allP.map(p=>{const cls=p===st.p?'on':(t.data[st.ia][p]?'':'off');
    return '<button data-p="'+p+'" class="'+cls+'"'+(cls==='off'?' title="no data at '+st.ia+'° camber — picks an available camber"':'')+'>'+p+'</button>';}).join('');
- pseg.querySelectorAll('button').forEach(b=>b.onclick=()=>{const p=b.dataset.p;
-   if(!t.data[st.ia][p])st.ia=ias.find(ia=>t.data[ia][p])||st.ia;st.p=p;refresh();});
  document.getElementById('specnote').textContent=(t.id===DB.spec)?'★ spec-sheet tyre (what we run)':'';
  document.getElementById('foot').innerHTML='Tyre: '+t.label+'<br>belt→road '+BELT
-   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev2 (no-data greying)';
+   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev3 (delegated buttons)';
 }
 const sel=document.getElementById('tsel');
 sel.innerHTML=DB.tires.map(t=>'<option value="'+t.id+'"'+(t.id===DB.spec?' selected':'')+'>'
@@ -241,5 +237,12 @@ sel.onchange=()=>{st.id=sel.value;st.ia=null;st.p=null;refresh();};
 document.getElementById('rseg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
  st.road=b.dataset.r==='road';
  document.querySelectorAll('#rseg button').forEach(x=>x.classList.toggle('on',x===b));refresh();});
+// delegated clicks on the STATIC seg containers — survives the innerHTML rebuilds of their buttons
+document.getElementById('iaseg').onclick=e=>{const b=e.target.closest('button[data-ia]');if(!b)return;
+ const tt=tyre(),ia=b.dataset.ia;st.ia=ia;
+ if(!tt.data[ia][st.p]){const k=Object.keys(tt.data[ia]).sort((a,b)=>a-b);st.p=k.includes('69')?'69':k[0];}refresh();};
+document.getElementById('pseg').onclick=e=>{const b=e.target.closest('button[data-p]');if(!b)return;
+ const tt=tyre(),p=b.dataset.p;
+ if(!tt.data[st.ia][p]){const a=Object.keys(tt.data).find(ia=>tt.data[ia][p]);if(a)st.ia=a;}st.p=p;refresh();};
 refresh();
 </script></body></html>
