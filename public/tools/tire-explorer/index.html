@@ -64,9 +64,9 @@ td{padding:8px 0;border-top:1px solid var(--line);text-align:right;font-family:v
 <header class="fade">
  <div class="eyebrow">Vehicle Dynamics · Tyre Data</div>
  <h1>TTC Tyre Curves</h1>
- <div class="lede">Smoothed FSAE TTC <b>cornering + drive/brake</b> data (de-spiked binned-median + Magic-Formula fit)
+ <div class="lede">Smoothed FSAE TTC <b>cornering + drive/brake + transient</b> data (de-spiked binned-median + Magic-Formula fit)
   — the same smoothing the load-case &amp; skidpad calculators use. Pick tyre, <b>camber</b>
-  and pressure. Lateral on top, longitudinal below. Defaults to the spec-sheet tyre.</div>
+  and pressure. Lateral on top, longitudinal, then transient lag below. Defaults to the spec-sheet tyre.</div>
 </header>
 <div class="layout">
  <aside class="glass pad fade" style="animation-delay:.06s">
@@ -114,6 +114,21 @@ td{padding:8px 0;border-top:1px solid var(--line);text-align:right;font-family:v
    </div>
    <p class="sectlab" style="margin-top:16px">Per-load summary @ <span id="ctxL"></span></p>
    <table><thead><tr><th>F<sub>z</sub> (N)</th><th>Peak F<sub>x</sub> (N)</th><th>μ<sub>x</sub></th><th>Opt SL</th><th>C<sub>slip</sub> (N)</th></tr></thead><tbody id="tbL"></tbody></table>
+  </div>
+  <div class="glass pad fade" id="tranBlock" style="animation-delay:.36s;margin-top:22px">
+   <p class="sectlab">Transient — relaxation length <span style="color:var(--faint);text-transform:none;letter-spacing:0">· yaw-response lag (transient_step, 0° camber)</span></p>
+   <div class="read" style="margin-top:2px">
+    <div class="kpi glass"><div class="lab">Relax. length σ (design load)</div><div class="num"><span id="kRL">–</span><span class="u"> m</span></div></div>
+    <div class="kpi glass"><div class="lab">Yaw lag τ @ 15 m/s</div><div class="num"><span id="kTau">–</span><span class="u"> ms</span></div></div>
+    <div class="kpi glass"><div class="lab">σ vs load</div><div class="num" style="font-size:16px"><span id="kRLtr">–</span></div></div>
+    <div class="kpi glass"><div class="lab">Steps in median</div><div class="num"><span id="kNst">–</span><span class="u"> avg</span></div></div>
+   </div>
+   <div class="plots">
+    <div class="plot glass"><div class="pt">Relaxation length vs vertical load</div><div class="ps">one line per pressure (kPa) · roll distance to reach ~63% of steady-state F<sub>y</sub></div><canvas id="cRL" width="520" height="320"></canvas><div class="leg" id="legPrl"></div></div>
+    <div class="plot glass"><div class="pt">Yaw-response lag τ = σ/V vs load</div><div class="ps">at V = 15 m/s (autocross-ish) · steer-input lag the tyre adds</div><canvas id="cTau" width="520" height="320"></canvas></div>
+   </div>
+   <p class="sectlab" style="margin-top:16px">Per-load summary @ <span id="ctxT"></span></p>
+   <table><thead><tr><th>F<sub>z</sub> (N)</th><th>σ (m)</th><th>τ @15 m/s (ms)</th><th>steps</th></tr></thead><tbody id="tbT"></tbody></table>
   </div>
  </section>
 </div></div>
@@ -216,6 +231,30 @@ function refresh(){
     '<tr><td>'+l.fz+'</td><td>'+(l.peak!=null?Math.round(sc(l.peak)):'–')+'</td><td>'+(l.mur!=null?(st.road?l.mur:l.mub).toFixed(2):'–')
     +'</td><td>'+(l.opt!=null?l.opt.toFixed(2):'–')+'</td><td>'+(l.cs!=null?Math.round(sc(l.cs)):'–')+'</td></tr>').join('');
  }
+ // transient (relaxation length) — pressure-resolved, no camber dimension
+ const tr=t.tdata, tranBlock=document.getElementById('tranBlock'), VREF=15;
+ if(!tr){tranBlock.style.display='none';}
+ else{
+  tranBlock.style.display='';
+  const tps=Object.keys(tr).sort((a,b)=>a-b);
+  const tp=tr[st.p]?st.p:tps[0];
+  const tl=tr[tp];
+  plot('cRL',tps.map((p,i)=>({pts:tr[p].map(l=>[l.fz,l.rl]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:COLS[i%COLS.length]})),'vertical load F_z (N)','relaxation length σ (m)',{yd:2});
+  plot('cTau',tps.map((p,i)=>({pts:tr[p].map(l=>[l.fz,l.rl!=null?l.rl/VREF*1000:null]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:COLS[i%COLS.length]})),'vertical load F_z (N)','τ = σ/V (ms)',{yd:0});
+  document.getElementById('legPrl').innerHTML=tps.map((p,i)=>
+    '<span><i style="background:'+COLS[i%COLS.length]+'"></i>'+p+' kPa'+(p===tp?' (sel)':'')+'</span>').join('');
+  const srt=tl.slice().filter(l=>l.rl!=null).sort((a,b)=>a.fz-b.fz);
+  const dlT=tl.reduce((a,b)=>Math.abs(b.fz-675)<Math.abs(a.fz-675)?b:a);
+  document.getElementById('kRL').textContent=dlT.rl!=null?dlT.rl.toFixed(2):'–';
+  document.getElementById('kTau').textContent=dlT.rl!=null?Math.round(dlT.rl/VREF*1000):'–';
+  let trd='–';
+  if(srt.length>=2){const d=srt[srt.length-1].rl-srt[0].rl;trd=d>0.05?'↑ rises':d<-0.05?'↓ falls':'~ flat';}
+  document.getElementById('kRLtr').textContent=trd;
+  document.getElementById('kNst').textContent=srt.length?Math.round(srt.reduce((a,b)=>a+(b.n||0),0)/srt.length):'–';
+  document.getElementById('ctxT').textContent=tp+' kPa'+(tp!==st.p?' (nearest avail.)':'')+' · σ → 63% of steady-state F_y';
+  document.getElementById('tbT').innerHTML=tl.slice().sort((a,b)=>a.fz-b.fz).map(l=>
+    '<tr><td>'+l.fz+'</td><td>'+(l.rl!=null?l.rl.toFixed(2):'–')+'</td><td>'+(l.rl!=null?Math.round(l.rl/VREF*1000):'–')+'</td><td>'+(l.n!=null?l.n:'–')+'</td></tr>').join('');
+ }
  // camber + pressure native <select>s — robust (same mechanism as the tyre selector).
  // combos with no data show as disabled "(no data)" options.
  const allP=[...new Set(ias.flatMap(ia=>Object.keys(t.data[ia])))].sort((a,b)=>a-b);
@@ -223,7 +262,7 @@ function refresh(){
  document.getElementById('psel').innerHTML=allP.map(p=>'<option value="'+p+'"'+(p===st.p?' selected':'')+(t.data[st.ia][p]?'':' disabled')+'>'+p+' kPa'+(t.data[st.ia][p]?'':' (no data)')+'</option>').join('');
  document.getElementById('specnote').textContent=(t.id===DB.spec)?'★ spec-sheet tyre (what we run)':'';
  document.getElementById('foot').innerHTML='Tyre: '+t.label+'<br>belt→road '+BELT
-   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev4 (native dropdowns)';
+   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev5 (transient panel)';
 }
 const sel=document.getElementById('tsel');
 sel.innerHTML=DB.tires.map(t=>'<option value="'+t.id+'"'+(t.id===DB.spec?' selected':'')+'>'
