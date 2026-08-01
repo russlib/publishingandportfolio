@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /actuator-mechanical-design-engineer/
+Disallow: /actuator-mechanical-design-engineer

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>TTC Tyre Curves — UV26</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=overused-grotesk@400,500,600,700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:oklch(0.965 0.006 250);--ink:#181818;--mut:#687385;--faint:#9aa3b2;
+ --card:oklch(1 0 0 / 0.72);--cborder:oklch(0.82 0.015 250 / 0.5);--line:oklch(0.86 0.012 250 / 0.6);
+ --accent:oklch(0.55 0.15 250);--good:#2f8a5b;--bad:#c0392b;--radius:18px;
+ --sans:"Overused Grotesk","Helvetica Neue",-apple-system,Segoe UI,Helvetica,Arial,sans-serif;
+ --mono:"Geist Mono",ui-monospace,Menlo,monospace;}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+ -webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;font-feature-settings:"zero" 0}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:
+ radial-gradient(ellipse 80% 60% at 15% 5%,oklch(0.82 0.1 235 / 35%),transparent),
+ radial-gradient(ellipse 50% 50% at 85% 75%,oklch(0.84 0.08 280 / 28%),transparent),
+ radial-gradient(ellipse 60% 40% at 50% 40%,oklch(0.87 0.06 210 / 20%),transparent);animation:drift 25s ease-in-out infinite alternate}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(-1.5%,1%) scale(1.02)}100%{transform:translate(1%,-1%) scale(1)}}
+.wrap{max-width:1120px;margin:0 auto;padding:46px 30px 60px}
+.glass{background:var(--card);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+ border:1px solid var(--cborder);border-radius:var(--radius);box-shadow:0 1px 3px oklch(0.3 0.02 250 / .06),0 4px 18px oklch(0.3 0.02 250 / .05),inset 0 1px 0 oklch(1 0 0 / .6)}
+.pad{padding:20px}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-weight:700;font-size:40px;letter-spacing:-.5px;margin:8px 0 0;line-height:1.04}
+.lede{color:var(--mut);font-size:14.5px;margin-top:9px;max-width:640px;line-height:1.55}
+.layout{display:grid;grid-template-columns:280px 1fr;gap:22px;margin-top:26px;align-items:start}
+@media(max-width:880px){.layout{grid-template-columns:1fr}}
+.sectlab{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:600;margin:0 0 14px}
+label.fld{display:block;font-size:13px;font-weight:500;margin:0 0 16px}
+label.fld span{display:block;color:var(--mut);font-size:11px;margin-bottom:6px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+select{width:100%;padding:9px 11px;border-radius:11px;border:1px solid var(--cborder);background:oklch(1 0 0 / .6);
+ font-family:var(--sans);font-size:13px;color:var(--ink);cursor:pointer}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:46px;padding:8px 0;border-radius:10px;border:1px solid var(--cborder);background:oklch(1 0 0 / .5);
+ font-family:var(--mono);font-size:12px;color:var(--mut);cursor:pointer;transition:all .15s}
+.seg button.on{background:var(--accent);color:#fff;border-color:transparent}
+.seg button.off{opacity:.4;color:var(--faint);background:oklch(1 0 0 / .2);border-style:dashed;border-color:var(--faint)}
+.spec{font-family:var(--mono);font-size:11px;color:var(--good);margin-top:4px;min-height:13px}
+.read{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{padding:13px 14px}.kpi .lab{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600}
+.kpi .num{font-weight:600;font-size:21px;margin-top:6px;letter-spacing:-.4px}.kpi .num .u{font-size:11px;color:var(--mut);font-weight:500}
+.plots{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.plots{grid-template-columns:1fr}.read{grid-template-columns:repeat(2,1fr)}}
+.plot{padding:14px 14px 8px}
+.plot .pt{font-size:12.5px;font-weight:600;margin:0 0 2px}
+.plot .ps{font-size:11px;color:var(--mut);margin:0 0 8px}
+canvas{display:block;width:100%;height:auto}
+.leg{display:flex;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--mut);margin-top:6px}
+.leg i{display:inline-block;width:10px;height:3px;border-radius:2px;margin-right:4px;vertical-align:middle}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+th{text-align:right;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);font-weight:600;padding:0 0 8px}
+th:first-child,td:first-child{text-align:left}
+td{padding:8px 0;border-top:1px solid var(--line);text-align:right;font-family:var(--mono);font-size:12px}
+.foot{font-size:10.5px;color:var(--faint);margin-top:16px;line-height:1.8;font-family:var(--mono)}
+.fade{opacity:0;animation:fade .6s ease forwards}@keyframes fade{to{opacity:1}}
+</style></head>
+<body><div class="wrap">
+<header class="fade">
+ <div class="eyebrow">Vehicle Dynamics · Tyre Data</div>
+ <h1>TTC Tyre Curves</h1>
+ <div class="lede">Smoothed FSAE TTC <b>cornering + drive/brake + transient</b> data (de-spiked binned-median + Magic-Formula fit)
+  — the same smoothing the load-case &amp; skidpad calculators use. Pick tyre, <b>camber</b>
+  and pressure. Lateral on top, longitudinal, then transient lag below. Defaults to the spec-sheet tyre.</div>
+</header>
+<div class="layout">
+ <aside class="glass pad fade" style="animation-delay:.06s">
+  <p class="sectlab">Tyre</p>
+  <label class="fld"><span>Select tyre</span><select id="tsel"></select><div class="spec" id="specnote"></div></label>
+  <label class="fld"><span>Camber / inclination (°)</span><select id="iasel"></select></label>
+  <label class="fld"><span>Pressure (kPa)</span><select id="psel"></select></label>
+  <label class="fld"><span>Grip basis</span><div class="seg" id="rseg">
+    <button data-r="road" class="on">road ×0.60</button><button data-r="belt">belt</button></div></label>
+  <div class="foot" id="foot"></div>
+ </aside>
+ <section>
+  <div class="read fade" style="animation-delay:.12s">
+   <div class="kpi glass"><div class="lab">Peak μ (design load)</div><div class="num"><span id="kMu">–</span></div></div>
+   <div class="kpi glass"><div class="lab">Peak F<sub>y</sub></div><div class="num"><span id="kFy">–</span><span class="u"> N</span></div></div>
+   <div class="kpi glass"><div class="lab">Optimal slip</div><div class="num"><span id="kSA">–</span><span class="u"> °</span></div></div>
+   <div class="kpi glass"><div class="lab">Cornering stiff.</div><div class="num"><span id="kCa">–</span><span class="u"> N/°</span></div></div>
+  </div>
+  <div class="plots fade" style="animation-delay:.18s">
+   <div class="plot glass"><div class="pt">Lateral force vs slip angle</div><div class="ps">one line per vertical load (N) · selected camber &amp; pressure</div><canvas id="cFy" width="520" height="320"></canvas><div class="leg" id="legLoad"></div></div>
+   <div class="plot glass"><div class="pt">Friction μ vs slip angle</div><div class="ps">F<sub>y</sub>/F<sub>z</sub> per load</div><canvas id="cMuSA" width="520" height="320"></canvas></div>
+   <div class="plot glass"><div class="pt">Aligning torque vs slip angle</div><div class="ps">M<sub>z</sub> (N·m) — feeds steering effort</div><canvas id="cMz" width="520" height="320"></canvas></div>
+   <div class="plot glass"><div class="pt">Pneumatic trail vs slip angle</div><div class="ps">t<sub>p</sub> = −M<sub>z</sub>/F<sub>y</sub> (mm)</div><canvas id="cTr" width="520" height="320"></canvas></div>
+   <div class="plot glass"><div class="pt">Peak μ vs load — camber compare</div><div class="ps">which camber grips best at your load</div><canvas id="cMu" width="520" height="320"></canvas><div class="leg" id="legIA"></div></div>
+   <div class="plot glass"><div class="pt">Cornering stiffness vs load</div><div class="ps">C<sub>α</sub> (N/°) — camber compare</div><canvas id="cCa" width="520" height="320"></canvas></div>
+   <div class="plot glass"><div class="pt">Optimal slip vs load</div><div class="ps">peak-grip slip — camber compare</div><canvas id="cOpt" width="520" height="320"></canvas></div>
+  </div>
+  <div class="glass pad fade" style="animation-delay:.24s;margin-top:16px">
+   <p class="sectlab">Per-load summary @ <span id="ctx"></span></p>
+   <table><thead><tr><th>F<sub>z</sub> (N)</th><th>Peak F<sub>y</sub> (N)</th><th>μ</th><th>Opt SA (°)</th><th>C<sub>α</sub> (N/°)</th></tr></thead><tbody id="tb"></tbody></table>
+  </div>
+  <div class="glass pad fade" id="lonBlock" style="animation-delay:.3s;margin-top:22px">
+   <p class="sectlab">Drive / Brake — longitudinal <span style="color:var(--faint);text-transform:none;letter-spacing:0">· F<sub>x</sub> vs slip ratio (sl_sweep)</span></p>
+   <div class="read" style="margin-top:2px">
+    <div class="kpi glass"><div class="lab">Peak μ<sub>x</sub> (design load)</div><div class="num"><span id="kMux">–</span></div></div>
+    <div class="kpi glass"><div class="lab">Peak F<sub>x</sub></div><div class="num"><span id="kFx">–</span><span class="u"> N</span></div></div>
+    <div class="kpi glass"><div class="lab">Optimal slip ratio</div><div class="num"><span id="kSL">–</span></div></div>
+    <div class="kpi glass"><div class="lab">Slip stiffness</div><div class="num"><span id="kCs">–</span><span class="u"> N</span></div></div>
+   </div>
+   <div class="plots">
+    <div class="plot glass"><div class="pt">Longitudinal force vs slip ratio</div><div class="ps">one line per vertical load (N) · selected camber &amp; pressure</div><canvas id="cFx" width="520" height="320"></canvas><div class="leg" id="legLoadL"></div></div>
+    <div class="plot glass"><div class="pt">Friction μ<sub>x</sub> vs slip ratio</div><div class="ps">F<sub>x</sub>/F<sub>z</sub> per load</div><canvas id="cMuSL" width="520" height="320"></canvas></div>
+    <div class="plot glass"><div class="pt">Peak μ<sub>x</sub> vs load — camber compare</div><div class="ps">drive/brake grip at your load</div><canvas id="cMux" width="520" height="320"></canvas><div class="leg" id="legIAL"></div></div>
+    <div class="plot glass"><div class="pt">Optimal slip ratio vs load</div><div class="ps">peak-F<sub>x</sub> slip — camber compare</div><canvas id="cOptL" width="520" height="320"></canvas></div>
+   </div>
+   <p class="sectlab" style="margin-top:16px">Per-load summary @ <span id="ctxL"></span></p>
+   <table><thead><tr><th>F<sub>z</sub> (N)</th><th>Peak F<sub>x</sub> (N)</th><th>μ<sub>x</sub></th><th>Opt SL</th><th>C<sub>slip</sub> (N)</th></tr></thead><tbody id="tbL"></tbody></table>
+  </div>
+  <div class="glass pad fade" id="tranBlock" style="animation-delay:.36s;margin-top:22px">
+   <p class="sectlab">Transient — relaxation length <span style="color:var(--faint);text-transform:none;letter-spacing:0">· yaw-response lag (transient_step, 0° camber)</span></p>
+   <div class="read" style="margin-top:2px">
+    <div class="kpi glass"><div class="lab">Relax. length σ (design load)</div><div class="num"><span id="kRL">–</span><span class="u"> m</span></div></div>
+    <div class="kpi glass"><div class="lab">Yaw lag τ @ 15 m/s</div><div class="num"><span id="kTau">–</span><span class="u"> ms</span></div></div>
+    <div class="kpi glass"><div class="lab">σ vs load</div><div class="num" style="font-size:16px"><span id="kRLtr">–</span></div></div>
+    <div class="kpi glass"><div class="lab">Steps in median</div><div class="num"><span id="kNst">–</span><span class="u"> avg</span></div></div>
+   </div>
+   <div class="plots">
+    <div class="plot glass"><div class="pt">Relaxation length vs vertical load</div><div class="ps">one line per pressure (kPa) · roll distance to reach ~63% of steady-state F<sub>y</sub></div><canvas id="cRL" width="520" height="320"></canvas><div class="leg" id="legPrl"></div></div>
+    <div class="plot glass"><div class="pt">Yaw-response lag τ = σ/V vs load</div><div class="ps">at V = 15 m/s (autocross-ish) · steer-input lag the tyre adds</div><canvas id="cTau" width="520" height="320"></canvas></div>
+   </div>
+   <p class="sectlab" style="margin-top:16px">Per-load summary @ <span id="ctxT"></span></p>
+   <table><thead><tr><th>F<sub>z</sub> (N)</th><th>σ (m)</th><th>τ @15 m/s (ms)</th><th>steps</th></tr></thead><tbody id="tbT"></tbody></table>
+  </div>
+ </section>
+</div></div>
+<script src="data.js"></script>
+<script>
+const DB=window.TIRE_DATA, BELT=DB.belt;
+const COLS=["#3a5fc0","#2f8a5b","#c0392b","#9a5a12","#7a3fb0","#147a8a"];
+const IACOL={"0":"#3a5fc0","2":"#2f8a5b","4":"#c0392b","6":"#9a5a12"};
+let st={id:DB.spec, ia:null, p:null, road:true};
+const tyre=()=>DB.tires.find(t=>t.id===st.id);
+const sc=v=>v==null?null:(st.road?v*BELT:v);
+function plot(cid,series,xlab,ylab,opt={}){
+ const cv=document.getElementById(cid),x=cv.getContext('2d'),W=cv.width,H=cv.height,m={l:52,r:12,t:12,b:34};
+ let xs=[],ys=[];series.forEach(s=>s.pts.forEach(p=>{xs.push(p[0]);ys.push(p[1])}));
+ if(!xs.length){x.clearRect(0,0,W,H);return;}
+ let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(0,...ys),y1=Math.max(0,...ys);
+ if(opt.symX){const a=Math.max(Math.abs(x0),Math.abs(x1));x0=-a;x1=a;}
+ const py=(y1-y0)*0.08||1;y1+=py;if(y0<0)y0-=py;
+ const X=v=>m.l+(v-x0)/(x1-x0)*(W-m.l-m.r),Y=v=>H-m.b-(v-y0)/(y1-y0)*(H-m.t-m.b);
+ x.clearRect(0,0,W,H);
+ x.strokeStyle='rgba(120,130,150,.28)';x.lineWidth=1;x.strokeRect(m.l,m.t,W-m.l-m.r,H-m.t-m.b);
+ x.setLineDash([3,4]);x.strokeStyle='rgba(120,130,150,.22)';
+ if(y0<0&&y1>0){x.beginPath();x.moveTo(m.l,Y(0));x.lineTo(W-m.r,Y(0));x.stroke();}
+ if(x0<0&&x1>0){x.beginPath();x.moveTo(X(0),m.t);x.lineTo(X(0),H-m.b);x.stroke();}
+ x.setLineDash([]);
+ series.forEach((s,i)=>{x.strokeStyle=s.c||COLS[i%COLS.length];x.lineWidth=2;x.beginPath();
+  s.pts.forEach((p,j)=>{const a=X(p[0]),b=Y(p[1]);j?x.lineTo(a,b):x.moveTo(a,b);});x.stroke();
+  if(s.dot){x.fillStyle=s.c||COLS[i%COLS.length];s.pts.forEach(p=>{x.beginPath();x.arc(X(p[0]),Y(p[1]),2.6,0,7);x.fill();});}});
+ x.fillStyle='#687385';x.font='10px "Geist Mono",monospace';x.textAlign='center';
+ x.fillText(xlab,(m.l+W-m.r)/2,H-5);
+ x.textAlign='right';x.fillText(y1.toFixed(opt.yd||1),m.l-5,m.t+9);x.fillText(y0.toFixed(opt.yd||1),m.l-5,H-m.b);
+ x.fillText(x0.toFixed(0),X(x0)+10,H-m.b+13);x.fillText(x1.toFixed(0),X(x1)-2,H-m.b+13);
+ x.save();x.translate(13,(m.t+H-m.b)/2);x.rotate(-Math.PI/2);x.textAlign='center';x.fillText(ylab,0,0);x.restore();
+}
+function trail(l){
+ const f=l.fy||[],m=l.mz||[],out=[];const n=Math.min(f.length,m.length);
+ for(let k=0;k<n;k++){const sa=f[k][0],fy=f[k][1];if(Math.abs(sa)<0.8||Math.abs(fy)<40)continue;
+   let tp=-m[k][1]/fy*1000; if(tp>120||tp<-40)continue; out.push([sa,tp]);}
+ return out;
+}
+function refresh(){
+ const t=tyre(), ias=Object.keys(t.data).sort((a,b)=>a-b);
+ if(st.ia==null||!t.data[st.ia]) st.ia=ias.includes("0")?"0":ias[0];
+ const ps=Object.keys(t.data[st.ia]).sort((a,b)=>a-b);
+ if(st.p==null||!t.data[st.ia][st.p]) st.p=ps.includes("69")?"69":ps[0];
+ const loads=t.data[st.ia][st.p];
+ // per-load curves at selected camber+pressure
+ plot('cFy',loads.map((l,i)=>({pts:(l.fy||[]).map(p=>[p[0],sc(p[1])]),c:COLS[i%COLS.length]})),'slip angle (°)','F_y (N)',{symX:1,yd:0});
+ plot('cMuSA',loads.map((l,i)=>({pts:(l.fy||[]).map(p=>[p[0],sc(p[1])/l.fz]),c:COLS[i%COLS.length]})),'slip angle (°)','μ = F_y/F_z',{symX:1,yd:2});
+ plot('cMz',loads.map((l,i)=>({pts:(l.mz||[]).map(p=>[p[0],sc(p[1])]),c:COLS[i%COLS.length]})),'slip angle (°)','M_z (N·m)',{symX:1,yd:0});
+ plot('cTr',loads.map((l,i)=>({pts:trail(l),c:COLS[i%COLS.length]})),'slip angle (°)','t_p (mm)',{symX:1,yd:0});
+ document.getElementById('legLoad').innerHTML=loads.map((l,i)=>
+   '<span><i style="background:'+COLS[i%COLS.length]+'"></i>'+l.fz+' N</span>').join('');
+ // vs-load scalar plots, overlaid across CAMBER at the selected pressure
+ const iaSeries=(fn)=>ias.filter(ia=>t.data[ia][st.p]).map(ia=>(
+   {pts:t.data[ia][st.p].map(l=>[l.fz,fn(l)]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:IACOL[ia]||'#888'}));
+ plot('cMu',iaSeries(l=>st.road?l.mur:l.mub),'vertical load F_z (N)','peak μ',{yd:2});
+ plot('cCa',iaSeries(l=>sc(l.ca)),'vertical load F_z (N)','C_α (N/°)',{yd:0});
+ plot('cOpt',iaSeries(l=>l.opt),'vertical load F_z (N)','optimal SA (°)',{yd:1});
+ document.getElementById('legIA').innerHTML=ias.filter(ia=>t.data[ia][st.p]).map(ia=>
+   '<span><i style="background:'+(IACOL[ia]||'#888')+'"></i>'+ia+'°'+(ia===st.ia?' (sel)':'')+'</span>').join('');
+ // KPIs at design-ish load
+ const dl=loads.reduce((a,b)=>Math.abs(b.fz-675)<Math.abs(a.fz-675)?b:a);
+ document.getElementById('kMu').textContent=(st.road?dl.mur:dl.mub).toFixed(2);
+ document.getElementById('kFy').textContent=Math.round(sc(dl.peak));
+ document.getElementById('kSA').textContent=dl.opt!=null?dl.opt.toFixed(1):'–';
+ document.getElementById('kCa').textContent=dl.ca!=null?Math.round(sc(dl.ca)):'–';
+ // table
+ document.getElementById('ctx').textContent=st.ia+'° camber · '+st.p+' kPa';
+ document.getElementById('tb').innerHTML=loads.slice().sort((a,b)=>a.fz-b.fz).map(l=>
+   '<tr><td>'+l.fz+'</td><td>'+(l.peak!=null?Math.round(sc(l.peak)):'–')+'</td><td>'+(l.mur!=null?(st.road?l.mur:l.mub).toFixed(2):'–')
+   +'</td><td>'+(l.opt!=null?l.opt.toFixed(1):'–')+'</td><td>'+(l.ca!=null?Math.round(sc(l.ca)):'–')+'</td></tr>').join('');
+ // longitudinal (drive/brake) — shares camber/pressure, falls back to nearest available
+ const lon=t.ldata, lonBlock=document.getElementById('lonBlock');
+ if(!lon){lonBlock.style.display='none';}
+ else{
+  lonBlock.style.display='';
+  const lias=Object.keys(lon).sort((a,b)=>a-b);
+  const lia=lon[st.ia]?st.ia:lias[0];
+  const lps=Object.keys(lon[lia]).sort((a,b)=>a-b);
+  const lp=lon[lia][st.p]?st.p:lps[0];
+  const ll=lon[lia][lp];
+  plot('cFx',ll.map((l,i)=>({pts:(l.fx||[]).map(p=>[p[0],sc(p[1])]),c:COLS[i%COLS.length]})),'slip ratio','F_x (N)',{symX:1,yd:0});
+  plot('cMuSL',ll.map((l,i)=>({pts:(l.fx||[]).map(p=>[p[0],sc(p[1])/l.fz]),c:COLS[i%COLS.length]})),'slip ratio','μ_x = F_x/F_z',{symX:1,yd:2});
+  const lser=(fn)=>lias.filter(ia=>lon[ia][lp]).map(ia=>(
+    {pts:lon[ia][lp].map(l=>[l.fz,fn(l)]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:IACOL[ia]||'#888'}));
+  plot('cMux',lser(l=>st.road?l.mur:l.mub),'vertical load F_z (N)','peak μ_x',{yd:2});
+  plot('cOptL',lser(l=>l.opt),'vertical load F_z (N)','optimal slip ratio',{yd:2});
+  document.getElementById('legLoadL').innerHTML=ll.map((l,i)=>
+    '<span><i style="background:'+COLS[i%COLS.length]+'"></i>'+l.fz+' N</span>').join('');
+  document.getElementById('legIAL').innerHTML=lias.filter(ia=>lon[ia][lp]).map(ia=>
+    '<span><i style="background:'+(IACOL[ia]||'#888')+'"></i>'+ia+'°'+(ia===lia?' (sel)':'')+'</span>').join('');
+  const dlL=ll.reduce((a,b)=>Math.abs(b.fz-675)<Math.abs(a.fz-675)?b:a);
+  document.getElementById('kMux').textContent=(st.road?dlL.mur:dlL.mub).toFixed(2);
+  document.getElementById('kFx').textContent=Math.round(sc(dlL.peak));
+  document.getElementById('kSL').textContent=dlL.opt!=null?dlL.opt.toFixed(2):'–';
+  document.getElementById('kCs').textContent=dlL.cs!=null?Math.round(sc(dlL.cs)):'–';
+  document.getElementById('ctxL').textContent=lia+'° camber · '+lp+' kPa'+((lia!==st.ia||lp!==st.p)?' (nearest avail.)':'');
+  document.getElementById('tbL').innerHTML=ll.slice().sort((a,b)=>a.fz-b.fz).map(l=>
+    '<tr><td>'+l.fz+'</td><td>'+(l.peak!=null?Math.round(sc(l.peak)):'–')+'</td><td>'+(l.mur!=null?(st.road?l.mur:l.mub).toFixed(2):'–')
+    +'</td><td>'+(l.opt!=null?l.opt.toFixed(2):'–')+'</td><td>'+(l.cs!=null?Math.round(sc(l.cs)):'–')+'</td></tr>').join('');
+ }
+ // transient (relaxation length) — pressure-resolved, no camber dimension
+ const tr=t.tdata, tranBlock=document.getElementById('tranBlock'), VREF=15;
+ if(!tr){tranBlock.style.display='none';}
+ else{
+  tranBlock.style.display='';
+  const tps=Object.keys(tr).sort((a,b)=>a-b);
+  const tp=tr[st.p]?st.p:tps[0];
+  const tl=tr[tp];
+  plot('cRL',tps.map((p,i)=>({pts:tr[p].map(l=>[l.fz,l.rl]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:COLS[i%COLS.length]})),'vertical load F_z (N)','relaxation length σ (m)',{yd:2});
+  plot('cTau',tps.map((p,i)=>({pts:tr[p].map(l=>[l.fz,l.rl!=null?l.rl/VREF*1000:null]).filter(p=>p[1]!=null).sort((a,b)=>a[0]-b[0]),dot:1,c:COLS[i%COLS.length]})),'vertical load F_z (N)','τ = σ/V (ms)',{yd:0});
+  document.getElementById('legPrl').innerHTML=tps.map((p,i)=>
+    '<span><i style="background:'+COLS[i%COLS.length]+'"></i>'+p+' kPa'+(p===tp?' (sel)':'')+'</span>').join('');
+  const srt=tl.slice().filter(l=>l.rl!=null).sort((a,b)=>a.fz-b.fz);
+  const dlT=tl.reduce((a,b)=>Math.abs(b.fz-675)<Math.abs(a.fz-675)?b:a);
+  document.getElementById('kRL').textContent=dlT.rl!=null?dlT.rl.toFixed(2):'–';
+  document.getElementById('kTau').textContent=dlT.rl!=null?Math.round(dlT.rl/VREF*1000):'–';
+  let trd='–';
+  if(srt.length>=2){const d=srt[srt.length-1].rl-srt[0].rl;trd=d>0.05?'↑ rises':d<-0.05?'↓ falls':'~ flat';}
+  document.getElementById('kRLtr').textContent=trd;
+  document.getElementById('kNst').textContent=srt.length?Math.round(srt.reduce((a,b)=>a+(b.n||0),0)/srt.length):'–';
+  document.getElementById('ctxT').textContent=tp+' kPa'+(tp!==st.p?' (nearest avail.)':'')+' · σ → 63% of steady-state F_y';
+  document.getElementById('tbT').innerHTML=tl.slice().sort((a,b)=>a.fz-b.fz).map(l=>
+    '<tr><td>'+l.fz+'</td><td>'+(l.rl!=null?l.rl.toFixed(2):'–')+'</td><td>'+(l.rl!=null?Math.round(l.rl/VREF*1000):'–')+'</td><td>'+(l.n!=null?l.n:'–')+'</td></tr>').join('');
+ }
+ // camber + pressure native <select>s — robust (same mechanism as the tyre selector).
+ // combos with no data show as disabled "(no data)" options.
+ const allP=[...new Set(ias.flatMap(ia=>Object.keys(t.data[ia])))].sort((a,b)=>a-b);
+ document.getElementById('iasel').innerHTML=ias.map(ia=>'<option value="'+ia+'"'+(ia===st.ia?' selected':'')+(t.data[ia][st.p]?'':' disabled')+'>'+ia+'°'+(t.data[ia][st.p]?'':' (no data)')+'</option>').join('');
+ document.getElementById('psel').innerHTML=allP.map(p=>'<option value="'+p+'"'+(p===st.p?' selected':'')+(t.data[st.ia][p]?'':' disabled')+'>'+p+' kPa'+(t.data[st.ia][p]?'':' (no data)')+'</option>').join('');
+ document.getElementById('specnote').textContent=(t.id===DB.spec)?'★ spec-sheet tyre (what we run)':'';
+ document.getElementById('foot').innerHTML='Tyre: '+t.label+'<br>belt→road '+BELT
+   +' · camber '+ias.join('/')+'° · smoothed from raw TTC · built '+DB.built+' · ui-rev5 (transient panel)';
+}
+const sel=document.getElementById('tsel');
+sel.innerHTML=DB.tires.map(t=>'<option value="'+t.id+'"'+(t.id===DB.spec?' selected':'')+'>'
+  +(t.id===DB.spec?'★ ':'')+t.label+'</option>').join('');
+sel.onchange=()=>{st.id=sel.value;st.ia=null;st.p=null;refresh();};
+document.getElementById('rseg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+ st.road=b.dataset.r==='road';
+ document.querySelectorAll('#rseg button').forEach(x=>x.classList.toggle('on',x===b));refresh();});
+// native <select> change handlers (same proven mechanism as the working tyre selector)
+document.getElementById('iasel').onchange=e=>{const tt=tyre(),ia=e.target.value;st.ia=ia;
+ if(!tt.data[ia][st.p]){const k=Object.keys(tt.data[ia]).sort((a,b)=>a-b);st.p=k.includes('69')?'69':k[0];}refresh();};
+document.getElementById('psel').onchange=e=>{const tt=tyre(),p=e.target.value;
+ if(!tt.data[st.ia][p]){const a=Object.keys(tt.data).find(ia=>tt.data[ia][p]);if(a)st.ia=a;}st.p=p;refresh();};
+refresh();
+</script></body></html>
