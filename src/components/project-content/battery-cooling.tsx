@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Image from "next/image";
 import {
   Figure,
   Callout,
@@ -80,11 +80,13 @@ export function BatteryCoolingContent() {
         <h3>Why Physical Testing?</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-[24px] my-[24px] items-end justify-items-center">
           <figure className="flex w-full flex-col items-center">
-            <div className="flex h-[320px] w-full items-center justify-center">
-              <img
+            <div className="relative flex h-[320px] w-full items-center justify-center">
+              <Image
                 src={img("enepaq-module-cad.png")}
                 alt="CAD view of Enepaq module showing irregular airflow path"
-                className="max-h-full max-w-full rounded-[8px] object-contain"
+                fill
+                sizes="(max-width: 640px) 100vw, 336px"
+                className="rounded-[8px] object-contain"
               />
             </div>
             <figcaption className="mt-[8px] text-center text-[13px] italic" style={{ color: "#687385" }}>
@@ -92,11 +94,13 @@ export function BatteryCoolingContent() {
             </figcaption>
           </figure>
           <figure className="flex w-full flex-col items-center">
-            <div className="flex h-[320px] w-full items-center justify-center">
-              <img
+            <div className="relative flex h-[320px] w-full items-center justify-center">
+              <Image
                 src={img("enepaq-brick-render.png")}
                 alt="Single Enepaq brick structure"
-                className="max-h-full max-w-full rounded-[8px] object-contain"
+                fill
+                sizes="(max-width: 640px) 100vw, 336px"
+                className="rounded-[8px] object-contain"
               />
             </div>
             <figcaption className="mt-[8px] text-center text-[13px] italic" style={{ color: "#687385" }}>
@@ -176,13 +180,9 @@ export function BatteryCoolingContent() {
         </p>
 
         <Callout type="note">
-          For the algebra behind how <InlineEquation tex="h" /> scales with velocity and fan power,
-          see the{" "}
-          <Link href="/project/nusselt-correlation-derivation" className="underline underline-offset-[3px]">
-            Nusselt correlation derivation
-          </Link>
-          {" "}&mdash; it predicts roughly 16&times; fan power to double cooling, which matches
-          what this experiment measured.
+          Rearranging the Nusselt correlation shows how <InlineEquation tex="h" /> scales with
+          velocity and fan power. The resulting estimate predicts roughly 16&times; fan power to
+          double cooling, which matches what this experiment measured.
         </Callout>
 
         <Collapsible title="MATLAB Files & Learning Process">

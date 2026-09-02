@@ -1,0 +1,9 @@
+articles:
+  - slug: battery-cooling-testing
+    title: Battery Cooling Testing
+    kind: Thermal testing
+    status: published
+    thumbnail: /projects/battery-cooling/correlation-graph.png
+    summary: Chose experiment over CFD because the geometry was too irregular to
+      trust a sim. Derived an h-correlation from raw thermocouple and power
+      data.

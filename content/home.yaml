@@ -1,0 +1,25 @@
+heroAlt: >-
+  Russell Bilinski in a helmet and harness, seated in the cockpit of a
+  formula-style race car at a cone course
+heroPrimaryCta: Browse projects
+heroSecondaryCta: Contact info
+
+clubEyebrow: Club experience
+workEyebrow: Work experience
+workExperience:
+  - org: Tesla
+    role: Battery Pack Mechanical Engineer
+  - org: Professional Components
+    role: ME Co-op
+  - org: Nicholson
+    role: R&D Co-op
+
+projectsHeading: Articles
+projectsIntro: Longer write-ups with methods, results, and figures.
+
+onePagersHeading: One-pagers
+onePagersEmpty: None published yet.
+onePagers: []
+
+contactHeading: Contact
+footerLine: Mechanical engineering · University of Victoria · 2026
