@@ -1,0 +1,43 @@
+org: UVic Formula Student
+kind: club
+current: true
+heroRole: Performance Manager
+intro: "Three roles across the team's first electric car: battery pack, vehicle
+  dynamics, and now performance."
+rolesHeading: Roles
+rolesIntro: Open a role to read what it actually involved.
+articlesHeading: Articles
+articlesIntro: "Long-form write-ups: methods, figures, and the numbers behind the decision."
+onePagersHeading: One-pagers
+onePagersIntro: "The opposite read: one page per project, answering a fixed set
+  of questions at a glance."
+onePagersEmpty: None published yet. This is where they will land as they are written.
+roles:
+  - title: Performance Manager (Executive)
+    short: Team-Wide Performance Analysis and Modeling
+    tag: Current
+    detail: "One of five executives on the team. I model and characterize what each
+      project is worth in performance terms, and hold the overall picture of
+      where the car's lap time actually comes from. That takes enough working
+      knowledge of each subsystem to do two things: weigh which projects matter,
+      and ask the sub-teams the questions that steer their development toward
+      the fastest version of the car."
+  - title: Vehicle Dynamics Lead
+    short: VD Meeting/Subsystem Organizer
+    tag: 18-member sub-team
+    detail: Led a sub-team of 18. My own work sat largely on the modeling side,
+      running the simulations used to answer vehicle characteristic questions.
+  - title: Battery Pack Member
+    short: Mechanical Designer and Owner of Cell and Thermal Models
+    tag: Mechanical + modeling
+    detail: "Contributed to the mechanical development of the first-generation pack
+      segment as part of the design process. Led battery modeling for the team:
+      heat generation and projection models, and the requirements that came out
+      of them."
+articles:
+  - slug: battery-cooling-testing
+    name: Battery Cooling Testing
+    role: Battery Pack
+    hook: Chose experiment over CFD because the geometry was too irregular to trust
+      a sim. Derived an h-correlation from raw thermocouple and power data.
+    thumbnail: /projects/battery-cooling/correlation-graph.png

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Lock } from "lucide-react";
 import { skills } from "@/data/portfolio";
@@ -12,9 +13,81 @@ import {
 } from "@/components/ui/card";
 import { SiteNav } from "@/components/site-nav";
 import { ProjectStatusTags } from "@/components/project-status-tags";
+import { getPublishedArticleSlugs } from "@/data/content";
 
-export function generateStaticParams() {
-  return Object.keys(skills).map((id) => ({ id }));
+export const dynamicParams = false;
+
+function publicEvidence(
+  skill: (typeof skills)[string],
+  publishedSlugs: Set<string>
+) {
+  return skill.evidence.filter(
+    (evidence) =>
+      evidence.nda || publishedSlugs.has(getProjectSlug(evidence.project))
+  );
+}
+
+export async function generateStaticParams() {
+  const publishedSlugs = await getPublishedArticleSlugs();
+  return Object.values(skills)
+    .filter((skill) => publicEvidence(skill, publishedSlugs).length > 0)
+    .map((skill) => ({ id: skill.id }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const skill = skills[id];
+
+  if (!skill) {
+    return {
+      title: "Page not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const publishedSlugs = await getPublishedArticleSlugs();
+  const evidence = publicEvidence(skill, publishedSlugs);
+
+  if (evidence.length === 0) {
+    return {
+      title: "Page not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const description =
+    skill.preview ||
+    `Public project evidence for ${skill.name} in Russell Bilinski's engineering portfolio.`;
+  const canonical = `/skill/${skill.id}`;
+
+  return {
+    title: skill.name,
+    description,
+    alternates: { canonical },
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title: `${skill.name} | Russell Bilinski`,
+      description,
+      images: [
+        {
+          url: "/me/driver-wide.jpg",
+          alt: "Russell Bilinski engineering portfolio",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${skill.name} | Russell Bilinski`,
+      description,
+      images: ["/me/driver-wide.jpg"],
+    },
+  };
 }
 
 export default async function SkillPage({
@@ -25,6 +98,9 @@ export default async function SkillPage({
   const { id } = await params;
   const skill = skills[id];
   if (!skill) notFound();
+  const publishedSlugs = await getPublishedArticleSlugs();
+  const evidence = publicEvidence(skill, publishedSlugs);
+  if (evidence.length === 0) notFound();
 
   return (
     <>
@@ -56,10 +132,10 @@ export default async function SkillPage({
         {/* Evidence cards */}
         <div className="mt-[48px] flex flex-col gap-[20px]">
           <h3 className="text-[13px] font-medium tracking-[0.5px] uppercase" style={{ color: "#687385" }}>
-            Evidence &middot; {skill.evidence.length} project{skill.evidence.length !== 1 ? "s" : ""}
+            Evidence &middot; {evidence.length} project{evidence.length !== 1 ? "s" : ""}
           </h3>
 
-          {skill.evidence.map((ev) => {
+          {evidence.map((ev) => {
             const slug = getProjectSlug(ev.project);
             const featured = featuredProjects.find((f) => f.slug === slug);
             const isMini = featured?.tier === "mini";
@@ -119,7 +195,7 @@ export default async function SkillPage({
                 {ev.nda && (
                   <p className="mt-[12px] text-[12px] leading-[18px] italic" style={{ color: "#9a7b31" }}>
                     {/* BORDERLINE: NDA disclaimer wording — slightly formal/lawyer-ish. See BORDERLINE.md */}
-                    Covered under NDA. Scope and skills listed reflect what I've been cleared to share.
+                    Covered under NDA. Scope and skills listed reflect what I&apos;ve been cleared to share.
                   </p>
                 )}
               </CardContent>
