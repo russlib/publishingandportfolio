@@ -63,7 +63,7 @@ export function BatteryCoolingContent() {
         <Figure
           src={img("correlation-graph.png")}
           alt="Fan power vs heat transfer coefficient correlation"
-          caption="Fan power vs heat transfer coefficient — the key deliverable from physical testing"
+          caption="Fan power vs heat transfer coefficient: the key deliverable from physical testing"
         />
         <p>
           The correlation{" "}
@@ -206,19 +206,19 @@ export function BatteryCoolingContent() {
         </p>
         <ul>
           <li>
-            <strong>Airflow velocity</strong> &mdash; fan specs don&apos;t translate directly to air
+            <strong>Airflow velocity</strong>: fan specs don&apos;t translate directly to air
             speed over cells
           </li>
           <li>
-            <strong>Turbulence effects</strong> &mdash; how does fan-induced turbulence affect heat
+            <strong>Turbulence effects</strong>: how does fan-induced turbulence affect heat
             transfer?
           </li>
           <li>
-            <strong>Pressure drop</strong> &mdash; what&apos;s the system impedance across the
+            <strong>Pressure drop</strong>: what&apos;s the system impedance across the
             module?
           </li>
           <li>
-            <strong>Cumulative error</strong> &mdash; how do uncertainties compound in detailed
+            <strong>Cumulative error</strong>: how do uncertainties compound in detailed
             models?
           </li>
         </ul>
@@ -335,7 +335,7 @@ export function BatteryCoolingContent() {
         <Figure
           src={img("early-matlab-plot.webp")}
           alt="Messy MATLAB plot from initial aluminum brick testing"
-          caption="Early testing with aluminum 'dummy' bricks — these initial experiments gave us unusually high h-coefficients due to unreliable thermocouple adherence and didn't account for the 'hottest cell rule' or progressive air heating across rows"
+          caption="Early testing with aluminum 'dummy' bricks. These initial experiments gave us unusually high h-coefficients due to unreliable thermocouple adherence and didn't account for the 'hottest cell rule' or progressive air heating across rows"
           width={500}
         />
 
@@ -343,7 +343,7 @@ export function BatteryCoolingContent() {
         <Figure
           src={img("full-test-setup.jpeg")}
           alt="Full battery cooling test setup with Enepaq brick, airflow segment, power supply, and data logging"
-          caption="Full test setup overview — Enepaq brick, airflow segment, power supply, and data logging"
+          caption="Full test setup overview: Enepaq brick, airflow segment, power supply, and data logging"
           width={500}
         />
         <p>
@@ -358,13 +358,13 @@ export function BatteryCoolingContent() {
             <Figure
               src={img("mock-vs-real-cell.jpeg")}
               alt="Mock Enepaq brick next to real VTC6 cell"
-              caption="Mock brick vs real VTC6 cell — aluminum has a similar thermal mass and density"
+              caption="Mock brick vs real VTC6 cell: aluminum has a similar thermal mass and density"
               width={400}
             />
             <Figure
               src={img("enepaq-sensor-layout.png")}
               alt="Enepaq temperature sensor layout"
-              caption="Enepaq temperature sensors are shielded by plastic casing — thermistor readings lag actual cell temperature"
+              caption="Enepaq temperature sensors are shielded by plastic casing. Thermistor readings lag actual cell temperature"
               width={400}
             />
             <Figure
@@ -428,7 +428,7 @@ export function BatteryCoolingContent() {
           </table>
         </div>
         <p className="text-[13px] italic" style={{ color: "#687385" }}>
-          *h-coefficient calculated from the hottest cell temperature — this is the conservative
+          *h-coefficient calculated from the hottest cell temperature. This is the conservative
           approach since we care about the worst-case cell.
         </p>
 
@@ -484,15 +484,15 @@ export function BatteryCoolingContent() {
           </p>
           <ol className="list-decimal pl-[20px] mt-[8px] space-y-[4px]">
             <li>
-              <strong>Overheating = DNF</strong> — exceeding 60 &deg;C during endurance means we
+              <strong>Overheating = DNF</strong>: exceeding 60 &deg;C during endurance means we
               fail
             </li>
             <li>
-              <strong>Data quality will improve</strong> — once the car is running, we&apos;ll get
+              <strong>Data quality will improve</strong>: once the car is running, we&apos;ll get
               real-world validation
             </li>
             <li>
-              <strong>We have the budget</strong> — our LV power budget can accommodate oversized
+              <strong>We have the budget</strong>: our LV power budget can accommodate oversized
               cooling if needed
             </li>
           </ol>
@@ -552,7 +552,7 @@ export function BatteryCoolingContent() {
           Max Safe Ambient = 60 &deg;C limit &minus; Cell &Delta;T &minus; Air Heating offset.
           <br />
           Air heating estimates depend heavily on mass flow rate. Mass flow wasn&apos;t measured
-          directly — it was back-calculated from the h-coefficient correlation to airspeed. This
+          directly. It was back-calculated from the h-coefficient correlation to airspeed. This
           table will be updated once I measure actual volumetric flow rate with my &ldquo;low-backpressure
           trash bag air catcher&rdquo; (yes, it&apos;s exactly what it sounds like).
         </p>
@@ -561,7 +561,7 @@ export function BatteryCoolingContent() {
         <Figure
           src={img("air-temp-gradient.png")}
           alt="Estimated air temperature rise across 6 cell rows"
-          caption="Estimated air temperature rise across 6 cell rows — higher fan power reduces cumulative heating"
+          caption="Estimated air temperature rise across 6 cell rows: higher fan power reduces cumulative heating"
         />
 
         <Callout type="note" title="Mass Flow Measurement Pending">
@@ -575,7 +575,7 @@ export function BatteryCoolingContent() {
         <ol className="list-decimal pl-[20px] space-y-[8px]">
           <li>
             <strong>Fan selection:</strong> Server fans actually outperform blowers at equivalent
-            power — this was unexpected. The 10k server fan handles both static pressure and high
+            power. This was unexpected. The 10k server fan handles both static pressure and high
             airflow well.
           </li>
           <li>
