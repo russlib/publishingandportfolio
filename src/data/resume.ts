@@ -1,2 +1,2 @@
-export const resumeUrl =
-  "https://drive.google.com/file/d/1B1U9kDBu32IF2iEJiai4eluiAg1kiPgT/view";
+// Main resume: resume-latex/resume-tesla-optimus.pdf, approved by Russell.
+export const resumeUrl = "/russell-bilinski-resume.pdf";
