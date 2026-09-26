@@ -1,3 +1,4 @@
+import { BatteryCoolingNotice } from "@/components/battery-cooling-notice";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -51,7 +52,9 @@ export async function generateMetadata({
 
   const canonical = `/project/${article.slug}`;
   const title = article.title;
-  const description = article.summary;
+  const description = slug === "battery-cooling-testing"
+    ? "Battery cooling article under construction. Read Russell Bilinski’s one-page project summary while the full write-up is revised."
+    : article.summary;
   const images = article.thumbnail
     ? [{ url: article.thumbnail, alt: `${article.title} project figure` }]
     : [{ url: "/me/driver-wide.jpg", alt: "Russell Bilinski engineering portfolio" }];
@@ -92,6 +95,8 @@ export default async function ProjectPage({
   if (!project || !article || (isProduction && article.status !== "published")) {
     notFound();
   }
+
+  if (slug === "battery-cooling-testing") return <BatteryCoolingNotice />;
 
   const featured = featuredProjects.find((f) => f.slug === slug);
   const isMini = featured?.tier === "mini";
