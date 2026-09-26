@@ -1,3 +1,4 @@
+import styles from "./home-portfolio.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,7 +9,7 @@ import {
   Mail,
 } from "lucide-react";
 import { resumeUrl } from "@/data/resume";
-import { getHome, getOrganisation, getArticlesByStatus } from "@/data/content";
+import { getHome, getOrganisation } from "@/data/content";
 import { Editable } from "@/components/edit/editable";
 
 
@@ -26,7 +27,7 @@ const CLUB_FILE = `experience/${CLUB_SLUG}`;
 /* Keep the club panel limited to destinations with public content. */
 const clubLinks = [
   { label: "Overview", href: `/experience/${CLUB_SLUG}` },
-  { label: "Articles", href: `/experience/${CLUB_SLUG}#articles` },
+  { label: "One-pagers", href: "#projects" },
 ];
 
 
@@ -190,10 +191,6 @@ export default async function Home() {
   const home = await getHome();
   const club = await getOrganisation(CLUB_SLUG);
 
-  /* Only finished writing reaches the landing page. Drafts live at /drafts
-     until their prose is Russell's rather than generated. */
-  const leadProjects = await getArticlesByStatus("published");
-
   return (
     <div className="sim-home sim-home-cinematic">
       <header className="sim-header sim-header-overlay">
@@ -235,90 +232,35 @@ export default async function Home() {
       <main>
         <HeroFull home={home} club={club} />
 
-        <section className="sim-projects sim-projects-lead" id="projects">
-          <Editable as="h2" path="home:projectsHeading" value={home.projectsHeading} />
-          <Editable as="p" path="home:projectsIntro" value={home.projectsIntro} />
-
-          <div className="sim-project-grid">
-            {leadProjects.map((project, position) => (
-              <Link
-                key={project.slug}
-                href={`/project/${project.slug}`}
-                className="sim-project-card"
-              >
-                <div className="sim-project-thumb">
-                  {project.thumbnail && (
-                    <Image
-                      src={project.thumbnail}
-                      alt=""
-                      fill
-                      sizes="180px"
-                      className="object-cover"
-                    />
-                  )}
+        <section className={styles.page} id="projects" aria-labelledby="one-pagers-heading">
+          <header className={styles.header}>
+            <h2 id="one-pagers-heading" style={{ fontSize: "clamp(28px, 4vw, 40px)", margin: 0, letterSpacing: "-1px" }}>One-pagers</h2>
+            <a className={styles.download} href="/projects/portfolio/russell-bilinski-portfolio.pdf" download>
+              <FileText size={16} aria-hidden="true" /> Download full portfolio
+            </a>
+          </header>
+          <div className={styles.grid}>
+            {["FSAE Battery Cooling", "FSAE Battery Pack Projects", "FSAE Executive and Lead Roles"].map((title, i) => (
+              <a className={styles.card} key={title} href={`/projects/portfolio/page-${i + 1}.pdf`}>
+                <div className={styles.paper}>
+                  <Image src={`/projects/portfolio/page-${i + 1}.png`} alt={`Preview of ${title}`} width={980} height={1268} sizes="(max-width: 700px) 90vw, 33vw" unoptimized />
                 </div>
-                <div className="sim-project-body">
-                  <small>
-                    {String(position + 1).padStart(2, "0")} ·{" "}
-                    <Editable
-                      path={`articles:articles.${project.index}.kind`}
-                      value={project.kind}
-                    />
-                  </small>
-                  <Editable
-                    as="h3"
-                    path={`articles:articles.${project.index}.title`}
-                    value={project.title}
-                  />
-                  <Editable
-                    as="p"
-                    path={`articles:articles.${project.index}.summary`}
-                    value={project.summary}
-                  />
+                <div className={styles.caption}>
+                  <p className={styles.meta}>0{i + 1} / PDF · 1 page</p>
+                  <h2>{title}</h2>
+                  <span className={styles.open}>View summary <ArrowUpRight size={16} aria-hidden="true" /></span>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
-        </section>
-
-        {home.onePagers.length > 0 && (
-          <section className="sim-projects" id="one-pagers">
-            <Editable
-              as="h2"
-              path="home:onePagersHeading"
-              value={home.onePagersHeading}
-            />
-            <div className="sim-project-grid">
-              {home.onePagers.map((sheet, i) => (
-                <Link
-                  key={sheet.name}
-                  href={sheet.href}
-                  className="sim-project-card"
-                >
-                  <div className="sim-project-thumb">
-                    {sheet.thumbnail && (
-                      <Image
-                        src={sheet.thumbnail}
-                        alt=""
-                        fill
-                        sizes="180px"
-                        className="object-cover"
-                      />
-                    )}
-                  </div>
-                  <div className="sim-project-body">
-                    <h3>{sheet.name}</h3>
-                    <Editable
-                      as="p"
-                      path={`home:onePagers.${i}.hook`}
-                      value={sheet.hook}
-                    />
-                  </div>
-                </Link>
-              ))}
+          <section aria-labelledby="articles-heading" style={{ marginTop: 56, borderTop: "1px solid #d8d8dc", paddingTop: 28 }}>
+            <h2 id="articles-heading" style={{ margin: "0 0 16px", fontSize: 28, letterSpacing: "-.5px" }}>Articles</h2>
+            <div style={{ border: "1px dashed #c7ccd3", borderRadius: 12, padding: "28px 24px", background: "#f8f9fb" }}>
+              <p style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 600 }}>Under revision</p>
+              <p style={{ margin: 0, color: "#62636b", lineHeight: 1.6 }}>I’m updating the longer write-ups. In the meantime, my project summaries are available above.</p>
             </div>
           </section>
-        )}
+        </section>
 
         <section className="sim-bottom-cta" id="contact">
           <Editable as="h2" path="home:contactHeading" value={home.contactHeading} />
