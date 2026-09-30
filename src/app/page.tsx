@@ -26,7 +26,6 @@ const CLUB_FILE = `experience/${CLUB_SLUG}`;
 
 /* Keep the club panel limited to destinations with public content. */
 const clubLinks = [
-  { label: "Overview", href: `/experience/${CLUB_SLUG}` },
   { label: "One-pagers", href: "#projects" },
 ];
 
