@@ -1,4 +1,5 @@
 import styles from "./home-portfolio.module.css";
+import polish from "./home-polish.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -191,7 +192,7 @@ export default async function Home() {
   const club = await getOrganisation(CLUB_SLUG);
 
   return (
-    <div className="sim-home sim-home-cinematic">
+    <div className={`sim-home sim-home-cinematic ${polish.scope}`}>
       <header className="sim-header sim-header-overlay">
         <nav className="sim-nav" aria-label="Primary">
           <Link href="/" className="sim-brand">
@@ -252,12 +253,14 @@ export default async function Home() {
               </a>
             ))}
           </div>
-          <section aria-labelledby="articles-heading" style={{ marginTop: 56, borderTop: "1px solid #d8d8dc", paddingTop: 28 }}>
-            <h2 id="articles-heading" style={{ margin: "0 0 16px", fontSize: 28, letterSpacing: "-.5px" }}>Articles</h2>
-            <div style={{ border: "1px dashed #c7ccd3", borderRadius: 12, padding: "28px 24px", background: "#f8f9fb" }}>
-              <p style={{ margin: "0 0 8px", fontSize: 17, fontWeight: 600 }}>Under revision</p>
-              <p style={{ margin: 0, color: "#62636b", lineHeight: 1.6 }}>I’m updating the longer write-ups. In the meantime, my project summaries are available above.</p>
-            </div>
+          {/* A quiet status line instead of a full section: the articles are
+              off the page for now, so the one-pagers run straight into Contact. */}
+          <section className={polish.articles} aria-labelledby="articles-heading">
+            <h2 id="articles-heading" className={polish.articlesLabel}>Articles</h2>
+            <p className={polish.articlesNote}>
+              <span className={polish.articlesStatus}>Under revision</span>
+              <span>I’m updating the longer write-ups. In the meantime, my project summaries are available above.</span>
+            </p>
           </section>
         </section>
 

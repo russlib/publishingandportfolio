@@ -1,0 +1,78 @@
+/* Everything here hangs off .scope, so the homepage's global .sim-* rules are
+   only adjusted inside this preview route. */
+
+/* ── 1. Mobile hero scrim ──
+   On a phone the cover crop puts the white visor behind the name, the
+   "Mechanical engineering" line and the "Club experience" eyebrow. The
+   homepage scrim is near-clear there (0.25), so the small uppercase labels
+   wash out. Both layers get heavier through the top half; desktop is untouched. */
+@media (max-width: 700px) {
+  .scope :global(.sim-hero-full)::after {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(7, 10, 39, 0.72) 0%,
+        rgba(7, 10, 39, 0.5) 140px,
+        rgba(7, 10, 39, 0.24) 260px,
+        rgba(7, 10, 39, 0) 340px
+      ),
+      linear-gradient(
+        to top,
+        rgba(7, 10, 39, 0.95) 0%,
+        rgba(7, 10, 39, 0.86) 40%,
+        rgba(7, 10, 39, 0.62) 70%,
+        rgba(7, 10, 39, 0.52) 100%
+      );
+  }
+}
+
+/* ── 2. Articles: a status line, not a section ── */
+.articles {
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid #d8d8dc;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+}
+/* Same treatment as the one-pager meta line, so it reads as a label. */
+.articlesLabel {
+  flex: none;
+  margin: 0;
+  color: #687385;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.articlesNote {
+  margin: 0;
+  color: #62636b;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.articlesStatus {
+  color: #333c4a;
+  font-weight: 600;
+}
+.articlesStatus::after {
+  content: "·";
+  margin: 0 8px;
+  color: #9a9ba3;
+  font-weight: 400;
+}
+
+/* The one-pager section already ends on its own bottom padding, so Contact
+   only needs a little extra on top of it rather than the full 88px. */
+.scope :global(.sim-bottom-cta) {
+  margin-top: 24px;
+}
+
+@media (max-width: 700px) {
+  .articles {
+    margin-top: 32px;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
